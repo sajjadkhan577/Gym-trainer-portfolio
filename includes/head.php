@@ -6,10 +6,12 @@ $metaTitle = isset($pageTitle) ? $pageTitle . ' - ' . SITE_NAME : SITE_NAME;
 $metaDescription = isset($pageDescription) ? $pageDescription : SITE_TAGLINE;
 
 // Generate canonical URL handling both .php and clean URLs
-$requestUri = $_SERVER['REQUEST_URI'];
-// Remove .php extension if present for cleaner canonical URLs
-$canonicalPath = preg_replace('/\.php$/', '', $requestUri);
-$canonicalUrl = rtrim(SITE_URL, '/') . '/' . ltrim($canonicalPath, '/');
+$requestUri = $_SERVER['REQUEST_URI'] ?? '/';
+$requestPath = parse_url($requestUri, PHP_URL_PATH) ?: '/';
+$sitePath = parse_url(SITE_URL, PHP_URL_PATH) ?: '/';
+$canonicalPath = '/' . ltrim(preg_replace('#^' . preg_quote(rtrim($sitePath, '/'), '#') . '#', '', $requestPath), '/');
+$canonicalPath = preg_replace('/\.php$/', '', $canonicalPath);
+$canonicalUrl = rtrim(SITE_URL, '/') . ($canonicalPath === '/' ? '/' : $canonicalPath);
 
 // Social images (using placeholder approach)
 $ogImage = 'https://via.placeholder.com/1200x630/12131a/4be277?text=Apex+Elite+Performance';

@@ -1,5 +1,4 @@
 <?php
-session_start();
 require_once __DIR__ . '/../config/config.php';
 require_once __DIR__ . '/includes/functions.php';
 
@@ -14,6 +13,8 @@ $error = '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!verify_csrf_token($_POST['csrf_token'] ?? '')) {
         $error = 'Invalid request.';
+    } elseif (!empty($_SESSION['login_locked_until']) && $_SESSION['login_locked_until'] > time()) {
+        $error = 'Too many login attempts. Please try again later.';
     } else {
         $email = sanitize_input($_POST['email'] ?? '');
         $password = $_POST['password'] ?? '';
@@ -33,11 +34,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['admin_id'] = $admin['id'];
             $_SESSION['admin_email'] = $admin['email'];
             $_SESSION['admin_name'] = $admin['name'];
+            unset($_SESSION['login_attempts'], $_SESSION['login_locked_until']);
             session_regenerate_id(true);
             header('Location: index.php');
             exit;
         } else {
             $error = 'Invalid email or password.';
+            $_SESSION['login_attempts'] = ($_SESSION['login_attempts'] ?? 0) + 1;
+            if ($_SESSION['login_attempts'] >= 5) {
+                $_SESSION['login_locked_until'] = time() + 900;
+            }
         }
     }
 }

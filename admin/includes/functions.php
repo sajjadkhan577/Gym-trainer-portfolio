@@ -24,6 +24,13 @@ function require_login() {
     }
 }
 
+function require_post_csrf() {
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST' || !verify_csrf_token($_POST['csrf_token'] ?? '')) {
+        http_response_code(403);
+        exit('Invalid request.');
+    }
+}
+
 function generate_csrf_token() {
     if (empty($_SESSION['csrf_token'])) {
         $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
@@ -90,6 +97,10 @@ function upload_image($file, $target_dir) {
         return ['success' => false, 'error' => 'Upload failed with error code ' . $code];
     }
 
+    if (!is_uploaded_file($file['tmp_name'])) {
+        return ['success' => false, 'error' => 'Invalid upload.'];
+    }
+
     $mime = (new finfo(FILEINFO_MIME_TYPE))->file($file['tmp_name']);
     if (!isset($allowed_types[$mime])) {
         return ['success' => false, 'error' => 'Invalid file type. Only JPG, PNG, and WEBP are allowed.'];
@@ -99,12 +110,25 @@ function upload_image($file, $target_dir) {
         return ['success' => false, 'error' => 'File size exceeds the 5MB limit.'];
     }
 
+    $imageInfo = @getimagesize($file['tmp_name']);
+    if ($imageInfo === false || $imageInfo[0] < 1 || $imageInfo[1] < 1) {
+        return ['success' => false, 'error' => 'Uploaded file is not a valid image.'];
+    }
+
     $ext = $allowed_types[$mime];
-    $filename = uniqid('img_') . '.' . $ext;
+    $filename = bin2hex(random_bytes(16)) . '.' . $ext;
+
+    $uploadsRoot = realpath(__DIR__ . '/../../uploads');
+    $resolvedTarget = realpath($target_dir);
+    if ($uploadsRoot === false || ($resolvedTarget !== false && strpos($resolvedTarget, $uploadsRoot) !== 0)) {
+        return ['success' => false, 'error' => 'Invalid upload directory.'];
+    }
     
     // Ensure dir exists
     if (!is_dir($target_dir)) {
-        mkdir($target_dir, 0755, true);
+        if (!mkdir($target_dir, 0755, true)) {
+            return ['success' => false, 'error' => 'Failed to create upload directory.'];
+        }
     }
     
     $target_file = rtrim($target_dir, '/') . '/' . $filename;

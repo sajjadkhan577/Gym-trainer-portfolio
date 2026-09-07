@@ -6,6 +6,7 @@
 # Runtime logs and generated uploads
 uploads/*
 !uploads/.htaccess
+*.log
 
 # Local editor and OS files
 .vscode/

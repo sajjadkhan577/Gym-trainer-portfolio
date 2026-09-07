@@ -5,6 +5,10 @@ Options -Multiviews
     Require all denied
 </FilesMatch>
 
+<FilesMatch "^(\.git|\.gitignore|composer\.(json|lock)|.*\.(bak|old|orig|dist))$">
+    Require all denied
+</FilesMatch>
+
 <Files "*.md">
     Require all denied
 </Files>
@@ -47,6 +51,8 @@ Options -Multiviews
     Header set X-Content-Type-Options "nosniff"
     Header set X-Frame-Options "SAMEORIGIN"
     Header set X-XSS-Protection "1; mode=block"
+    Header set Referrer-Policy "strict-origin-when-cross-origin"
+    Header set Permissions-Policy "camera=(), microphone=(), geolocation=()"
 </IfModule>
 
 <IfModule mod_rewrite.c>
@@ -69,6 +75,7 @@ Options -Multiviews
     
     # Protect sensitive directories
     RewriteRule ^(config|database|includes)/ - [F,L]
+    RewriteRule ^(?:\.git|\.env)(?:/|$) - [F,L,NC]
     
     # SEO-friendly URLs for pages
     RewriteRule ^about/?$ about.php [L,QSA]
@@ -88,8 +95,8 @@ Options -Multiviews
     RewriteRule ^book/service/([0-9]+)/?$ book.php?service=$1 [L,QSA]
     RewriteRule ^book/program/([0-9]+)/?$ book.php?program=$1 [L,QSA]
     
-    # Pretty URLs for remaining requests
+    # Unknown clean URLs should use the custom 404 page instead of the homepage.
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteRule ^ index.php [L]
+    RewriteRule ^ - [R=404,L]
 </IfModule>

@@ -83,7 +83,10 @@ $sidebar_coach = get_db_connection()->query("SELECT profile_image FROM coach_inf
 </div>
 <div>
 <p class="font-body-md font-semibold text-on-surface">Admin</p>
-<a href="logout.php" class="text-xs text-error hover:underline">Logout</a>
+<form method="POST" action="logout.php">
+<input type="hidden" name="csrf_token" value="<?= htmlspecialchars(generate_csrf_token(), ENT_QUOTES, 'UTF-8') ?>">
+<button type="submit" class="text-xs text-error hover:underline">Logout</button>
+</form>
 </div>
 </div>
 </div>

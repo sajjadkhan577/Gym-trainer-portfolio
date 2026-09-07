@@ -67,10 +67,19 @@ define('FOOTER_LINKS', [
 date_default_timezone_set($envValue('APP_TIMEZONE', 'America/New_York'));
 
 error_reporting(E_ALL);
-ini_set('display_errors', ENVIRONMENT === 'development' ? 1 : 0);
+ini_set('display_errors', ENVIRONMENT === 'development' ? '1' : '0');
+ini_set('display_startup_errors', '0');
 ini_set('log_errors', 1);
-ini_set('error_log', __DIR__ . '/../uploads/error.log');
+ini_set('error_log', $envValue('APP_LOG_FILE', __DIR__ . '/../uploads/error.log'));
 
 if (session_status() === PHP_SESSION_NONE) {
+    ini_set('session.use_strict_mode', '1');
+    ini_set('session.use_only_cookies', '1');
+    session_set_cookie_params([
+        'httponly' => true,
+        'secure' => (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || $envValue('APP_ENV', 'development') === 'production',
+        'samesite' => 'Lax',
+        'path' => '/'
+    ]);
     session_start();
 }

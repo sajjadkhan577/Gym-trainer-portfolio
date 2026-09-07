@@ -9,13 +9,15 @@ $error_msg   = '';
 
 // Handle password change
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
-    if ($_POST['action'] === 'change_password') {
+    if ($_POST['action'] === 'change_password' && verify_csrf_token($_POST['csrf_token'] ?? '')) {
         $current  = $_POST['current_password'] ?? '';
         $new_pass = $_POST['new_password'] ?? '';
         $confirm  = $_POST['confirm_password'] ?? '';
 
-        // Load stored hash from config (or could be from DB)
-        $stored_hash = ADMIN_PASSWORD_HASH ?? '';
+        $admin = $pdo->prepare('SELECT password FROM admins WHERE id = :id AND status = \'active\'');
+        $admin->execute(['id' => $_SESSION['admin_id'] ?? 0]);
+        $admin = $admin->fetch();
+        $stored_hash = $admin['password'] ?? '';
 
         if (!password_verify($current, $stored_hash)) {
             $error_msg = 'Current password is incorrect.';
@@ -25,9 +27,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
             $error_msg = 'New passwords do not match.';
         } else {
             $new_hash = password_hash($new_pass, PASSWORD_BCRYPT);
-            // Update the config file – simplified approach: just show the new hash
-            $success_msg = 'Password changed successfully! New hash for config: <code class="bg-surface-container px-2 py-1 rounded text-primary">' . htmlspecialchars($new_hash) . '</code>';
+            $update = $pdo->prepare('UPDATE admins SET password = :password WHERE id = :id');
+            $update->execute(['password' => $new_hash, 'id' => $_SESSION['admin_id']]);
+            $success_msg = 'Password changed successfully.';
         }
+    } elseif ($_POST['action'] === 'change_password') {
+        $error_msg = 'Invalid request.';
     }
 }
 ?>
@@ -53,6 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
 <div class="glass-panel rounded-xl p-6 md:p-8 bg-surface-container/70 backdrop-blur-[30px] border border-white/10 mb-8">
 <h3 class="font-headline-md text-xl text-on-surface mb-6 border-b border-white/10 pb-4">Change Password</h3>
 <form method="POST">
+<input type="hidden" name="csrf_token" value="<?= htmlspecialchars(generate_csrf_token(), ENT_QUOTES, 'UTF-8') ?>">
 <input type="hidden" name="action" value="change_password">
 <div class="space-y-5">
     <div>
@@ -92,9 +98,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
     </div>
 </div>
 <div class="mt-6 pt-4 border-t border-white/10">
-    <a href="logout.php" class="inline-flex items-center gap-2 px-6 py-3 bg-error/20 text-error border border-error/30 rounded font-label-caps uppercase tracking-wider hover:bg-error/30 transition-colors text-sm">
+    <form method="POST" action="logout.php" class="inline">
+    <input type="hidden" name="csrf_token" value="<?= htmlspecialchars(generate_csrf_token(), ENT_QUOTES, 'UTF-8') ?>">
+    <button type="submit" class="inline-flex items-center gap-2 px-6 py-3 bg-error/20 text-error border border-error/30 rounded font-label-caps uppercase tracking-wider hover:bg-error/30 transition-colors text-sm">
         <span class="material-symbols-outlined text-[18px]">logout</span> Logout
-    </a>
+    </button>
+    </form>
 </div>
 </div>
 </div>

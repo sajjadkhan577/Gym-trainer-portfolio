@@ -29,12 +29,12 @@ db_update('blog_posts', ['views' => $post['views'] + 1], 'id = :id', ['id' => $p
 // Get related posts (same category, excluding current post)
 $relatedPosts = db_select('blog_posts', '*', 'category = :category AND id != :id AND status = :status', 
     ['category' => $post['category'], 'id' => $post['id'], 'status' => 'published'], 
-    'date DESC LIMIT 3');
+    'date DESC', 3);
 
 // Get recent posts (excluding current post)
 $recentPosts = db_select('blog_posts', '*', 'id != :id AND status = :status', 
     ['id' => $post['id'], 'status' => 'published'], 
-    'date DESC LIMIT 4');
+    'date DESC', 4);
 
 // Set page meta tags
 $pageTitle = $post['meta_title'] ?? $post['title'];

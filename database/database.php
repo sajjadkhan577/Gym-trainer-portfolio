@@ -6,6 +6,11 @@ class Database {
     private static $instance = null;
     private $pdo;
     private $lastError = null;
+    private const ALLOWED_TABLES = [
+        'admins', 'blog_posts', 'bookings', 'coach_info', 'contact_messages',
+        'gallery', 'newsletter_subscribers', 'programs', 'services',
+        'statistics', 'testimonials', 'transformations'
+    ];
 
     private function __construct() {
         try {
@@ -29,11 +34,7 @@ class Database {
             $this->pdo = new PDO($dsn, DB_USER, DB_PASS, $options);
         } catch (PDOException $e) {
             $this->logError('Database connection failed: ' . $e->getMessage());
-            if (ENVIRONMENT === 'development') {
-                die('Database connection failed: ' . $e->getMessage());
-            } else {
-                die('Database connection failed. Please try again later.');
-            }
+            die('Database connection failed. Please try again later.');
         }
     }
 
@@ -55,6 +56,46 @@ class Database {
     private function logError($message) {
         $this->lastError = $message;
         error_log('[Database Error] ' . $message);
+    }
+
+    private function validateTable($table) {
+        if (!in_array($table, self::ALLOWED_TABLES, true)) {
+            throw new InvalidArgumentException('Invalid database table.');
+        }
+        return $table;
+    }
+
+    private function validateColumns($columns) {
+        if (is_array($columns)) {
+            $columns = implode(', ', $columns);
+        }
+        if ($columns === '*' || preg_match('/^\s*[a-zA-Z_][a-zA-Z0-9_]*(?:\s*,\s*[a-zA-Z_][a-zA-Z0-9_]*)*\s*$/', $columns)) {
+            return $columns;
+        }
+        throw new InvalidArgumentException('Invalid database columns.');
+    }
+
+    private function validateOrderBy($orderBy) {
+        if ($orderBy === '') {
+            return '';
+        }
+        if (preg_match('/^\s*[a-zA-Z_][a-zA-Z0-9_]*(?:\s+(?:ASC|DESC))?(?:\s*,\s*[a-zA-Z_][a-zA-Z0-9_]*(?:\s+(?:ASC|DESC))?)*\s*$/i', $orderBy)) {
+            return $orderBy;
+        }
+        throw new InvalidArgumentException('Invalid database ordering.');
+    }
+
+    private function validateLimit($limit) {
+        if ($limit === '' || $limit === null) {
+            return '';
+        }
+        if (is_int($limit) || ctype_digit((string)$limit)) {
+            return (string)(int)$limit;
+        }
+        if (preg_match('/^\d+\s*,\s*\d+$/', (string)$limit)) {
+            return $limit;
+        }
+        throw new InvalidArgumentException('Invalid database limit.');
     }
 
     public function query($sql, $params = []) {
@@ -86,6 +127,10 @@ class Database {
 
     public function select($table, $columns = '*', $where = '', $params = [], $orderBy = '', $limit = '') {
         try {
+            $table = $this->validateTable($table);
+            $columns = $this->validateColumns($columns);
+            $orderBy = $this->validateOrderBy($orderBy);
+            $limit = $this->validateLimit($limit);
             $sql = "SELECT {$columns} FROM {$table}";
             
             if (!empty($where)) {
@@ -109,6 +154,7 @@ class Database {
 
     public function count($table, $where = '', $params = []) {
         try {
+            $table = $this->validateTable($table);
             $sql = "SELECT COUNT(*) as count FROM {$table}";
             
             if (!empty($where)) {
@@ -125,6 +171,8 @@ class Database {
 
     public function insert($table, $data) {
         try {
+            $table = $this->validateTable($table);
+            $this->validateColumns(array_keys($data));
             $columns = implode(', ', array_keys($data));
             $placeholders = ':' . implode(', :', array_keys($data));
             $sql = "INSERT INTO {$table} ({$columns}) VALUES ({$placeholders})";
@@ -138,6 +186,8 @@ class Database {
 
     public function update($table, $data, $where, $whereParams = []) {
         try {
+            $table = $this->validateTable($table);
+            $this->validateColumns(array_keys($data));
             $set = [];
             foreach (array_keys($data) as $column) {
                 $set[] = "{$column} = :{$column}";
@@ -154,6 +204,7 @@ class Database {
 
     public function delete($table, $where, $whereParams = []) {
         try {
+            $table = $this->validateTable($table);
             $sql = "DELETE FROM {$table} WHERE {$where}";
             return $this->query($sql, $whereParams)->rowCount();
         } catch (PDOException $e) {

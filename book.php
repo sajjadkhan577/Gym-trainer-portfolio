@@ -88,6 +88,20 @@ if (is_post_request()) {
         if (empty($serviceId) && empty($programId)) {
             $errors[] = 'Please select a service or program.';
         }
+
+        if ($serviceId) {
+            $serviceExists = db_fetch_one('SELECT id FROM services WHERE id = :id AND status = :status', ['id' => $serviceId, 'status' => 'active']);
+            if (!$serviceExists) {
+                $errors[] = 'Please select a valid service.';
+            }
+        }
+
+        if ($programId) {
+            $programExists = db_fetch_one('SELECT id FROM programs WHERE id = :id AND status = :status', ['id' => $programId, 'status' => 'active']);
+            if (!$programExists) {
+                $errors[] = 'Please select a valid program.';
+            }
+        }
         
         if (!empty($message) && strlen($message) > 2000) {
             $errors[] = 'Message is too long.';

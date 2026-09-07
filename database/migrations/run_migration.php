@@ -15,10 +15,7 @@ try {
     
     $pdo->exec($sql);
     
-    echo "Migration executed successfully. Admins table created and default admin user added.\n";
-    echo "Default admin credentials:\n";
-    echo "Email: admin@apexcoaching.com\n";
-    echo "Password: ApexAdmin123!\n";
+    echo "Migration executed successfully. Admins table is ready. Create an administrator with a unique password before deployment.\n";
     
 } catch (Exception $e) {
     echo "Migration failed: " . $e->getMessage() . "\n";

@@ -29,36 +29,43 @@ $newsletterMessage = '';
 $newsletterMessageType = '';
 
 if (is_post_request() && isset($_POST['newsletter_email'])) {
-    $email = clean_input($_POST['newsletter_email']);
-    
-    // Validate email
-    if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        // Check for duplicate email
-        $existing = db_fetch_one("SELECT id FROM newsletter_subscribers WHERE email = :email AND status != 'unsubscribed'", ['email' => $email]);
-        
-        if (!$existing) {
-            // Insert new subscriber
-            $subscriberId = db_insert('newsletter_subscribers', [
-                'email' => $email,
-                'name' => isset($_POST['newsletter_name']) ? clean_input($_POST['newsletter_name']) : '',
-                'ip_address' => $_SERVER['REMOTE_ADDR'] ?? '',
-                'user_agent' => $_SERVER['HTTP_USER_AGENT'] ?? ''
-            ]);
-            
-            if ($subscriberId) {
-                $newsletterMessage = 'Successfully subscribed to our newsletter!';
-                $newsletterMessageType = 'success';
+    if (!verify_csrf_token($_POST['csrf_token'] ?? '')) {
+        $newsletterMessage = 'Security token expired. Please refresh the page and try again.';
+        $newsletterMessageType = 'error';
+    } else {
+        $email = clean_input($_POST['newsletter_email']);
+        $ipAddress = $_SERVER['REMOTE_ADDR'] ?? '';
+        $recentSubscriptions = db_count('newsletter_subscribers', 'ip_address = :ip AND subscribed_at > DATE_SUB(NOW(), INTERVAL 1 HOUR)', ['ip' => $ipAddress]);
+
+        if ($recentSubscriptions >= 5) {
+            $newsletterMessage = 'Too many subscription attempts. Please try again later.';
+            $newsletterMessageType = 'error';
+        } elseif (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $existing = db_fetch_one("SELECT id FROM newsletter_subscribers WHERE email = :email AND status != 'unsubscribed'", ['email' => $email]);
+
+            if (!$existing) {
+                $subscriberId = db_insert('newsletter_subscribers', [
+                    'email' => $email,
+                    'name' => isset($_POST['newsletter_name']) ? clean_input($_POST['newsletter_name']) : '',
+                    'ip_address' => $ipAddress,
+                    'user_agent' => $_SERVER['HTTP_USER_AGENT'] ?? ''
+                ]);
+
+                if ($subscriberId) {
+                    $newsletterMessage = 'Successfully subscribed to our newsletter!';
+                    $newsletterMessageType = 'success';
+                } else {
+                    $newsletterMessage = 'An error occurred. Please try again.';
+                    $newsletterMessageType = 'error';
+                }
             } else {
-                $newsletterMessage = 'An error occurred. Please try again.';
-                $newsletterMessageType = 'error';
+                $newsletterMessage = 'You are already subscribed to our newsletter.';
+                $newsletterMessageType = 'info';
             }
         } else {
-            $newsletterMessage = 'You are already subscribed to our newsletter.';
-            $newsletterMessageType = 'info';
+            $newsletterMessage = 'Please enter a valid email address.';
+            $newsletterMessageType = 'error';
         }
-    } else {
-        $newsletterMessage = 'Please enter a valid email address.';
-        $newsletterMessageType = 'error';
     }
 }
 
@@ -396,7 +403,8 @@ All Articles <span class="material-symbols-outlined text-[18px]">arrow_forward</
         <?php echo e($newsletterMessage); ?>
     </div>
 <?php endif; ?>
-<form method="POST" action="<?php echo site_url('index.php'); ?>#newsletter" class="flex flex-col sm:flex-row gap-4 max-w-xl mx-auto">
+    <form method="POST" action="<?php echo site_url('index.php'); ?>#newsletter" class="flex flex-col sm:flex-row gap-4 max-w-xl mx-auto">
+    <?php echo csrf_field(); ?>
     <input type="text" name="newsletter_name" placeholder="Your name" class="flex-1 bg-surface-container-high text-on-surface px-6 py-4 rounded border border-white/10 focus:border-primary focus:outline-none transition-all duration-300">
     <input type="email" name="newsletter_email" placeholder="Your email" required class="flex-1 bg-surface-container-high text-on-surface px-6 py-4 rounded border border-white/10 focus:border-primary focus:outline-none transition-all duration-300">
     <button type="submit" class="bg-primary text-on-primary font-label-caps text-label-caps px-8 py-4 rounded hover:shadow-[0_0_20px_theme('colors.primary')] transition-all duration-300 whitespace-nowrap">

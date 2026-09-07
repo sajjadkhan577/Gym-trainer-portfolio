@@ -78,6 +78,8 @@ The `*_*/code.html` directories are retained as design references and are not pa
 - Use prepared statements through the database helper layer.
 - Use the existing CSRF helpers for all state-changing forms.
 - Test clean URLs and form submissions through Apache, not only through a PHP file preview.
+- Read [DEPLOYMENT.md](DEPLOYMENT.md) before uploading to shared hosting.
+- Review [SECURITY.md](SECURITY.md) and [PRODUCTION_AUDIT.md](PRODUCTION_AUDIT.md) before production use.
 
 ## License
 

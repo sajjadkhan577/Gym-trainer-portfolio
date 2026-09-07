@@ -14,6 +14,12 @@ if (!$coach) {
 
 $success = false;
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (!verify_csrf_token($_POST['csrf_token'] ?? '')) {
+        $error = 'Invalid request.';
+    }
+    if (isset($error)) {
+        $success = false;
+    } else {
     $profile_image = $coach['profile_image'] ?? '';
     $featured_image = $coach['featured_image'] ?? '';
     if (!empty($_FILES['profile_image']['name'])) {
@@ -50,6 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $success = true;
     $coach = $pdo->query("SELECT * FROM coach_info WHERE id = 1")->fetch();
     }
+    }
 }
 ?>
 <main class="flex-1 min-h-0">
@@ -71,6 +78,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <div class="glass-panel rounded-xl p-6 md:p-8 bg-surface-container/70 backdrop-blur-[30px] border border-white/10">
 <form method="POST" enctype="multipart/form-data">
+<input type="hidden" name="csrf_token" value="<?= htmlspecialchars(generate_csrf_token(), ENT_QUOTES, 'UTF-8') ?>">
 <div class="space-y-6">
     <div class="flex items-center gap-6 pb-6 border-b border-white/10">
         <?php if ($coach['profile_image']): ?>

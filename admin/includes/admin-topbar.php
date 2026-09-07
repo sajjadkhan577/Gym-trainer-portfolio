@@ -25,9 +25,12 @@
     </a>
     <div class="flex items-center gap-2">
         <span class="text-sm text-on-surface-variant hidden md:block"><?= htmlspecialchars($_SESSION['admin_name'] ?? 'Admin') ?></span>
-        <a href="logout.php" class="p-2 text-on-surface-variant hover:text-error transition-colors hover:opacity-80 rounded-full" title="Logout">
+        <form method="POST" action="logout.php">
+        <input type="hidden" name="csrf_token" value="<?= htmlspecialchars(generate_csrf_token(), ENT_QUOTES, 'UTF-8') ?>">
+        <button type="submit" class="p-2 text-on-surface-variant hover:text-error transition-colors hover:opacity-80 rounded-full" title="Logout">
             <span class="material-symbols-outlined">logout</span>
-        </a>
+        </button>
+        </form>
     </div>
 </div>
 </header>
