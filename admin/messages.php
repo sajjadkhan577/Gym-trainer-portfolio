@@ -5,15 +5,15 @@ require_once __DIR__ . '/includes/admin-sidebar.php';
 $pdo = get_db_connection();
 $csrf_token = generate_csrf_token();
 
-if (isset($_GET['action']) && isset($_GET['id'])) {
-    if (!verify_csrf_token($_GET['csrf_token'] ?? '')) {
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'], $_POST['id'])) {
+    if (!verify_csrf_token($_POST['csrf_token'] ?? '')) {
         set_toast_message('error', 'Invalid security token. Please try again.');
     } else {
-        $id = (int)$_GET['id'];
-        $action = $_GET['action'];
+        $id = filter_var($_POST['id'], FILTER_VALIDATE_INT, ['options' => ['min_range' => 1]]);
+        $action = $_POST['action'];
         $allowed_statuses = ['read', 'replied', 'archived'];
         
-        if (in_array($action, $allowed_statuses)) {
+        if ($id && in_array($action, $allowed_statuses, true)) {
             $stmt = $pdo->prepare("UPDATE contact_messages SET status = :status WHERE id = :id");
             $stmt->execute([':status' => $action, ':id' => $id]);
             set_toast_message('success', 'Message status updated successfully.');
@@ -96,16 +96,16 @@ if ($m['status'] == 'replied') $statusClass = 'bg-tertiary-container/10 text-ter
 <td class="py-5 px-6 align-middle text-right">
 <div class="flex justify-end gap-3 opacity-0 group-hover/row:opacity-100 transition-opacity duration-200">
 <?php if ($m['status'] == 'new'): ?>
-<a href="?action=read&id=<?= $m['id'] ?>&csrf_token=<?= $csrf_token ?>" class="text-on-surface-variant hover:text-primary transition-colors p-1" title="Mark Read">
+<form method="POST" class="inline"><input type="hidden" name="action" value="read"><input type="hidden" name="id" value="<?= (int)$m['id'] ?>"><input type="hidden" name="csrf_token" value="<?= htmlspecialchars($csrf_token, ENT_QUOTES, 'UTF-8') ?>"><button type="submit" class="text-on-surface-variant hover:text-primary transition-colors p-1" title="Mark Read">
 <span class="material-symbols-outlined text-[20px]">mark_email_read</span>
-</a>
+</button></form>
 <?php endif; ?>
 <a href="message-details.php?id=<?= $m['id'] ?>" class="text-on-surface-variant hover:text-primary transition-colors p-1" title="View">
 <span class="material-symbols-outlined text-[20px]">visibility</span>
 </a>
-<a href="?action=archived&id=<?= $m['id'] ?>&csrf_token=<?= $csrf_token ?>" class="text-on-surface-variant hover:text-error transition-colors p-1" title="Archive">
+<form method="POST" class="inline"><input type="hidden" name="action" value="archived"><input type="hidden" name="id" value="<?= (int)$m['id'] ?>"><input type="hidden" name="csrf_token" value="<?= htmlspecialchars($csrf_token, ENT_QUOTES, 'UTF-8') ?>"><button type="submit" class="text-on-surface-variant hover:text-error transition-colors p-1" title="Archive">
 <span class="material-symbols-outlined text-[20px]">archive</span>
-</a>
+</button></form>
 </div>
 </td>
 </tr>

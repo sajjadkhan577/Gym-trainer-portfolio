@@ -18,12 +18,13 @@ This application is designed for standard Apache shared hosting with PHP and MyS
 4. Copy `.env.example` to `.env` on the server and set production values.
 5. Set `SITE_URL` to the HTTPS production URL, for example `https://example.com`.
 6. Set `APP_ENV=production` and a strong database password.
+7. Add the production absolute sitemap URL to `robots.txt`.
 
 ## Database
 
 Import `database/production-schema.sql` into the new database using phpMyAdmin. This file creates tables without demo content. Use `database/schema.sql` only for local/demo setup; it contains sample rows and external image URLs.
 
-Run `database/migrations/create_admins_table.sql` after the schema if the `admins` table is not already present. Create the first administrator using a locally generated `password_hash()` value and a unique password. The repository contains no default admin password.
+Run `database/migrations/create_admins_table.sql` and `database/migrations/create_login_attempts_table.sql` after the schema if those tables are not already present. Create the first administrator using a locally generated `password_hash()` value and a unique password. The repository contains no default admin password.
 
 ## Permissions and uploads
 

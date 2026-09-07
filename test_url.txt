@@ -1,3 +1,0 @@
-Database Test URL: http://localhost:8000/database_test.php
-Page Audit URL: http://localhost:8000/page_audit.php
-Comprehensive Test URL: http://localhost:8000/comprehensive_test.php

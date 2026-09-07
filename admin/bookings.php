@@ -6,15 +6,15 @@ $pdo = get_db_connection();
 $csrf_token = generate_csrf_token();
 
 // Handle status updates with CSRF protection
-if (isset($_GET['action']) && isset($_GET['id'])) {
-    if (!verify_csrf_token($_GET['csrf_token'] ?? '')) {
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'], $_POST['id'])) {
+    if (!verify_csrf_token($_POST['csrf_token'] ?? '')) {
         set_toast_message('error', 'Invalid security token. Please try again.');
     } else {
-        $id = (int)$_GET['id'];
-        $action = $_GET['action'];
-        $allowed_statuses = ['pending', 'confirmed', 'rejected', 'cancelled', 'completed'];
+        $id = filter_var($_POST['id'], FILTER_VALIDATE_INT, ['options' => ['min_range' => 1]]);
+        $action = $_POST['action'];
+        $allowed_statuses = ['pending', 'confirmed', 'cancelled', 'completed'];
         
-        if (in_array($action, $allowed_statuses)) {
+        if ($id && in_array($action, $allowed_statuses, true)) {
             $stmt = $pdo->prepare("UPDATE bookings SET booking_status = :status WHERE id = :id");
             $stmt->execute([':status' => $action, ':id' => $id]);
             set_toast_message('success', 'Booking status updated successfully.');
@@ -177,17 +177,17 @@ if ($b['status'] == 'completed') $statusClass = 'bg-blue-500/20 text-blue-400';
 <td class="py-4 px-6 text-right">
 <div class="flex justify-end gap-2">
 <?php if ($b['status'] == 'pending'): ?>
-<a href="?action=confirmed&id=<?= $b['id'] ?>&csrf_token=<?= $csrf_token ?>" class="p-2 rounded hover:bg-white/10 text-primary transition-colors" title="Confirm">
+<form method="POST" class="inline"><input type="hidden" name="action" value="confirmed"><input type="hidden" name="id" value="<?= (int)$b['id'] ?>"><input type="hidden" name="csrf_token" value="<?= htmlspecialchars($csrf_token, ENT_QUOTES, 'UTF-8') ?>"><button type="submit" class="p-2 rounded hover:bg-white/10 text-primary transition-colors" title="Confirm">
 <span class="material-symbols-outlined text-[20px]">check_circle</span>
-</a>
-<a href="?action=rejected&id=<?= $b['id'] ?>&csrf_token=<?= $csrf_token ?>" class="p-2 rounded hover:bg-white/10 text-error transition-colors" title="Reject">
+</button></form>
+<form method="POST" class="inline"><input type="hidden" name="action" value="cancelled"><input type="hidden" name="id" value="<?= (int)$b['id'] ?>"><input type="hidden" name="csrf_token" value="<?= htmlspecialchars($csrf_token, ENT_QUOTES, 'UTF-8') ?>"><button type="submit" class="p-2 rounded hover:bg-white/10 text-error transition-colors" title="Reject">
 <span class="material-symbols-outlined text-[20px]">cancel</span>
-</a>
+</button></form>
 <?php endif; ?>
 <?php if ($b['status'] == 'confirmed'): ?>
-<a href="?action=completed&id=<?= $b['id'] ?>&csrf_token=<?= $csrf_token ?>" class="p-2 rounded hover:bg-white/10 text-blue-400 transition-colors" title="Mark Completed">
+<form method="POST" class="inline"><input type="hidden" name="action" value="completed"><input type="hidden" name="id" value="<?= (int)$b['id'] ?>"><input type="hidden" name="csrf_token" value="<?= htmlspecialchars($csrf_token, ENT_QUOTES, 'UTF-8') ?>"><button type="submit" class="p-2 rounded hover:bg-white/10 text-blue-400 transition-colors" title="Mark Completed">
 <span class="material-symbols-outlined text-[20px]">done_all</span>
-</a>
+</button></form>
 <?php endif; ?>
 <a href="booking-details.php?id=<?= $b['id'] ?>" class="p-2 rounded hover:bg-white/10 text-on-surface-variant transition-colors" title="View Details">
 <span class="material-symbols-outlined text-[20px]">visibility</span>

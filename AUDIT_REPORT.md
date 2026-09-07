@@ -423,9 +423,7 @@ The Apex Elite Performance Gym Trainer Portfolio is fully functional with:
 
 **Live URL**: http://localhost:8000/
 **Test Scripts**: 
-- Database: http://localhost:8000/database_test.php
-- Page Audit: http://localhost:8000/page_audit.php
-- Comprehensive: http://localhost:8000/comprehensive_test.php
+- Removed public diagnostic and test scripts from the production document root.
 
 ---
 

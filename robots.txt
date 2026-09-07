@@ -10,7 +10,7 @@ Disallow: /*.sql
 Disallow: /*.log
 
 # Sitemap
-Sitemap: http://localhost/Gym-trainer-portfolio/sitemap.php
+# Add the absolute HTTPS sitemap URL for the production domain before launch.
 
 # Crawl-delay for polite crawling
 Crawl-delay: 1

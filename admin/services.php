@@ -6,11 +6,16 @@ $pdo = get_db_connection();
 $csrf_token = generate_csrf_token();
 
 // Handle active toggle with CSRF protection
-if (isset($_GET['toggle_active']) && isset($_GET['id'])) {
-    if (!verify_csrf_token($_GET['csrf_token'] ?? '')) {
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'], $_POST['id'])) {
+    if (!verify_csrf_token($_POST['csrf_token'] ?? '')) {
         set_toast_message('error', 'Invalid security token. Please try again.');
     } else {
-        $id = (int)$_GET['id'];
+        $id = filter_var($_POST['id'], FILTER_VALIDATE_INT, ['options' => ['min_range' => 1]]);
+        if (!$id || $_POST['action'] !== 'toggle_status') {
+            set_toast_message('error', 'Invalid request.');
+            header('Location: services.php');
+            exit;
+        }
         $stmt = $pdo->prepare("UPDATE services SET status = IF(status='active','inactive','active') WHERE id = :id");
         $stmt->execute([':id' => $id]);
         set_toast_message('success', 'Service status updated successfully.');
@@ -64,14 +69,14 @@ $services = $stmt->fetchAll();
                 <?php endif; ?>
                 <!-- Toggle -->
                 <div class="flex items-center">
-                    <a href="?toggle_active=1&id=<?= $service['id'] ?>&csrf_token=<?= $csrf_token ?>" class="flex items-center cursor-pointer">
+                    <form method="POST" class="inline"><input type="hidden" name="action" value="toggle_status"><input type="hidden" name="id" value="<?= (int)$service['id'] ?>"><input type="hidden" name="csrf_token" value="<?= htmlspecialchars($csrf_token, ENT_QUOTES, 'UTF-8') ?>"><button type="submit" class="flex items-center cursor-pointer">
                         <div class="relative">
                             <input <?= ($service['status'] ?? 'inactive') === 'active' ? 'checked' : '' ?> class="sr-only toggle-checkbox" type="checkbox" onclick="return false;">
                             <div class="block bg-surface-container-high w-10 h-6 rounded-full border border-white/20 transition-colors toggle-label <?= $service['status'] == 'active' ? 'bg-primary-container border-primary-container' : '' ?>"></div>
                             <div class="absolute left-1 top-1 w-4 h-4 rounded-full transition transform shadow-sm <?= $service['status'] == 'active' ? 'bg-white translate-x-[100%]' : 'bg-on-surface-variant translate-x-0' ?>"></div>
                         </div>
                         <span class="ml-3 font-label-caps text-xs text-on-surface-variant uppercase"><?= $service['status'] == 'active' ? 'Active' : 'Inactive' ?></span>
-                    </a>
+                    </button></form>
                 </div>
             </div>
             <div>
@@ -101,13 +106,13 @@ $services = $stmt->fetchAll();
         </div>
         <div class="p-6 flex-1 flex flex-col justify-between relative z-10 -mt-12">
             <div class="flex justify-end mb-2">
-                <a href="?toggle_active=1&id=<?= $service['id'] ?>&csrf_token=<?= $csrf_token ?>" class="flex items-center cursor-pointer">
+                <form method="POST" class="inline"><input type="hidden" name="action" value="toggle_status"><input type="hidden" name="id" value="<?= (int)$service['id'] ?>"><input type="hidden" name="csrf_token" value="<?= htmlspecialchars($csrf_token, ENT_QUOTES, 'UTF-8') ?>"><button type="submit" class="flex items-center cursor-pointer">
                     <div class="relative">
                         <input <?= ($service['status'] ?? 'inactive') === 'active' ? 'checked' : '' ?> class="sr-only toggle-checkbox" type="checkbox" onclick="return false;">
                         <div class="block bg-surface-container-high w-10 h-6 rounded-full border border-white/20 transition-colors toggle-label <?= $service['status'] == 'active' ? 'bg-primary-container border-primary-container' : '' ?>"></div>
                         <div class="absolute left-1 top-1 w-4 h-4 rounded-full transition transform shadow-sm <?= $service['status'] == 'active' ? 'bg-white translate-x-[100%]' : 'bg-on-surface-variant translate-x-0' ?>"></div>
                     </div>
-                </a>
+                </button></form>
             </div>
             <div>
                 <h3 class="font-headline-md text-[24px] font-bold text-on-surface mb-2 leading-tight"><?= htmlspecialchars($service['title']) ?></h3>

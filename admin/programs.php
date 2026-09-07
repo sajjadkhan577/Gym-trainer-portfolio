@@ -6,12 +6,17 @@ $pdo = get_db_connection();
 $csrf_token = generate_csrf_token();
 
 // Handle status updates or deletes with CSRF protection
-if (isset($_GET['action']) && isset($_GET['id'])) {
-    if (!verify_csrf_token($_GET['csrf_token'] ?? '')) {
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'], $_POST['id'])) {
+    if (!verify_csrf_token($_POST['csrf_token'] ?? '')) {
         set_toast_message('error', 'Invalid security token. Please try again.');
     } else {
-        $id = (int)$_GET['id'];
-        $action = $_GET['action'];
+        $id = filter_var($_POST['id'], FILTER_VALIDATE_INT, ['options' => ['min_range' => 1]]);
+        $action = $_POST['action'];
+        if (!$id || !in_array($action, ['toggle_status', 'delete'], true)) {
+            set_toast_message('error', 'Invalid request.');
+            header('Location: programs.php');
+            exit;
+        }
         
         if ($action == 'toggle_status') {
             $stmt = $pdo->prepare("UPDATE programs SET status = IF(status='active', 'inactive', 'active') WHERE id = :id");
@@ -94,7 +99,7 @@ $programs = $stmt->fetchAll();
 <td class="py-5 px-6 align-middle font-body-md text-on-surface-variant"><?= htmlspecialchars($p['duration']) ?></td>
 <td class="py-5 px-6 align-middle font-body-md font-medium text-on-surface">$<?= number_format($p['price'], 2) ?></td>
 <td class="py-5 px-6 align-middle">
-<a href="?action=toggle_status&id=<?= $p['id'] ?>&csrf_token=<?= $csrf_token ?>" class="flex items-center gap-2 hover:opacity-80 transition-opacity">
+<form method="POST" class="inline"><input type="hidden" name="action" value="toggle_status"><input type="hidden" name="id" value="<?= (int)$p['id'] ?>"><input type="hidden" name="csrf_token" value="<?= htmlspecialchars($csrf_token, ENT_QUOTES, 'UTF-8') ?>"><button type="submit" class="flex items-center gap-2 hover:opacity-80 transition-opacity">
 <?php if ($p['status'] == 'active'): ?>
 <div class="w-2 h-2 rounded-full bg-primary-container shadow-[0_0_8px_rgba(34,197,94,0.8)]"></div>
 <span class="font-body-md text-sm text-primary-fixed">Active</span>
@@ -102,16 +107,16 @@ $programs = $stmt->fetchAll();
 <div class="w-2 h-2 rounded-full bg-surface-bright border border-white/20"></div>
 <span class="font-body-md text-sm text-on-surface-variant">Inactive</span>
 <?php endif; ?>
-</a>
+</button></form>
 </td>
 <td class="py-5 px-6 align-middle text-right">
 <div class="flex justify-end gap-3 opacity-0 group-hover/row:opacity-100 transition-opacity duration-200">
 <a href="program-form.php?id=<?= $p['id'] ?>" class="text-on-surface-variant hover:text-primary transition-colors p-1" title="Edit">
 <span class="material-symbols-outlined text-[20px]">edit</span>
 </a>
-<a href="?action=delete&id=<?= $p['id'] ?>&csrf_token=<?= $csrf_token ?>" onclick="return confirm('Are you sure you want to delete this program?');" class="text-on-surface-variant hover:text-error transition-colors p-1" title="Delete">
+<form method="POST" class="inline" onsubmit="return confirm('Are you sure you want to delete this program?');"><input type="hidden" name="action" value="delete"><input type="hidden" name="id" value="<?= (int)$p['id'] ?>"><input type="hidden" name="csrf_token" value="<?= htmlspecialchars($csrf_token, ENT_QUOTES, 'UTF-8') ?>"><button type="submit" class="text-on-surface-variant hover:text-error transition-colors p-1" title="Delete">
 <span class="material-symbols-outlined text-[20px]">delete</span>
-</a>
+</button></form>
 </div>
 </td>
 </tr>

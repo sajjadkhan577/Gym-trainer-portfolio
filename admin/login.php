@@ -16,14 +16,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } elseif (!empty($_SESSION['login_locked_until']) && $_SESSION['login_locked_until'] > time()) {
         $error = 'Too many login attempts. Please try again later.';
     } else {
-        $email = sanitize_input($_POST['email'] ?? '');
+        $email = strtolower(trim($_POST['email'] ?? ''));
         $password = $_POST['password'] ?? '';
+        $ipAddress = $_SERVER['REMOTE_ADDR'] ?? '0.0.0.0';
 
         // Query admins table for authentication
         $pdo = get_db_connection();
-        $stmt = $pdo->prepare("SELECT * FROM admins WHERE email = :email AND status = 'active'");
-        $stmt->execute([':email' => $email]);
-        $admin = $stmt->fetch();
+        $pdo->exec('DELETE FROM login_attempts WHERE attempted_at < (NOW() - INTERVAL 1 DAY)');
+        $throttleStmt = $pdo->prepare('SELECT COUNT(*) FROM login_attempts WHERE email = :email AND ip_address = :ip AND attempted_at >= (NOW() - INTERVAL 15 MINUTE)');
+        $throttleStmt->execute(['email' => $email, 'ip' => $ipAddress]);
+        $recentFailures = (int)$throttleStmt->fetchColumn();
+
+        if ($recentFailures >= 5) {
+            $admin = null;
+        } else {
+            $stmt = $pdo->prepare("SELECT * FROM admins WHERE email = :email AND status = 'active'");
+            $stmt->execute([':email' => $email]);
+            $admin = $stmt->fetch();
+        }
         
         if ($admin && password_verify($password, $admin['password'])) {
             // Update last login time
@@ -35,11 +45,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['admin_email'] = $admin['email'];
             $_SESSION['admin_name'] = $admin['name'];
             unset($_SESSION['login_attempts'], $_SESSION['login_locked_until']);
+            $clearAttempts = $pdo->prepare('DELETE FROM login_attempts WHERE email = :email AND ip_address = :ip');
+            $clearAttempts->execute(['email' => $email, 'ip' => $ipAddress]);
             session_regenerate_id(true);
             header('Location: index.php');
             exit;
         } else {
             $error = 'Invalid email or password.';
+            $recordAttempt = $pdo->prepare('INSERT INTO login_attempts (email, ip_address) VALUES (:email, :ip)');
+            $recordAttempt->execute(['email' => $email, 'ip' => $ipAddress]);
             $_SESSION['login_attempts'] = ($_SESSION['login_attempts'] ?? 0) + 1;
             if ($_SESSION['login_attempts'] >= 5) {
                 $_SESSION['login_locked_until'] = time() + 900;

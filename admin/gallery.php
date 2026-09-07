@@ -6,12 +6,17 @@ $pdo = get_db_connection();
 $csrf_token = generate_csrf_token();
 
 // Handle status updates or deletes with CSRF protection
-if (isset($_GET['action']) && isset($_GET['id'])) {
-    if (!verify_csrf_token($_GET['csrf_token'] ?? '')) {
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'], $_POST['id'])) {
+    if (!verify_csrf_token($_POST['csrf_token'] ?? '')) {
         set_toast_message('error', 'Invalid security token. Please try again.');
     } else {
-        $id = (int)$_GET['id'];
-        $action = $_GET['action'];
+        $id = filter_var($_POST['id'], FILTER_VALIDATE_INT, ['options' => ['min_range' => 1]]);
+        $action = $_POST['action'];
+        if (!$id || !in_array($action, ['toggle_status', 'delete'], true)) {
+            set_toast_message('error', 'Invalid request.');
+            header('Location: gallery.php');
+            exit;
+        }
         
         if ($action == 'toggle_status') {
             $stmt = $pdo->prepare("UPDATE gallery SET status = IF(status='active', 'inactive', 'active') WHERE id = :id");
@@ -62,17 +67,17 @@ $items = $pdo->query("SELECT * FROM gallery ORDER BY sort_order ASC, created_at 
             <a href="gallery-form.php?id=<?= $item['id'] ?>" class="p-2 rounded-full bg-white/10 hover:bg-primary/20 text-white hover:text-primary transition-colors">
                 <span class="material-symbols-outlined">edit</span>
             </a>
-            <a href="?action=delete&id=<?= $item['id'] ?>&csrf_token=<?= $csrf_token ?>" onclick="return confirm('Delete this item?');" class="p-2 rounded-full bg-white/10 hover:bg-error/20 text-white hover:text-error transition-colors">
+            <form method="POST" class="inline" onsubmit="return confirm('Delete this item?');"><input type="hidden" name="action" value="delete"><input type="hidden" name="id" value="<?= (int)$item['id'] ?>"><input type="hidden" name="csrf_token" value="<?= htmlspecialchars($csrf_token, ENT_QUOTES, 'UTF-8') ?>"><button type="submit" class="p-2 rounded-full bg-white/10 hover:bg-error/20 text-white hover:text-error transition-colors">
                 <span class="material-symbols-outlined">delete</span>
-            </a>
+            </button></form>
         </div>
     </div>
     <div class="p-3">
         <div class="flex justify-between items-center">
             <span class="text-xs text-on-surface-variant uppercase tracking-wider font-label-caps"><?= htmlspecialchars($item['category']) ?></span>
-            <a href="?action=toggle_status&id=<?= $item['id'] ?>&csrf_token=<?= $csrf_token ?>" class="text-xs <?= $item['status'] == 'active' ? 'text-primary' : 'text-on-surface-variant' ?> hover:opacity-70 transition-opacity">
+            <form method="POST" class="inline"><input type="hidden" name="action" value="toggle_status"><input type="hidden" name="id" value="<?= (int)$item['id'] ?>"><input type="hidden" name="csrf_token" value="<?= htmlspecialchars($csrf_token, ENT_QUOTES, 'UTF-8') ?>"><button type="submit" class="text-xs <?= $item['status'] == 'active' ? 'text-primary' : 'text-on-surface-variant' ?> hover:opacity-70 transition-opacity">
                 <?= $item['status'] == 'active' ? '● Active' : '○ Inactive' ?>
-            </a>
+            </button></form>
         </div>
         <p class="text-on-surface text-sm font-medium mt-1 truncate"><?= htmlspecialchars($item['title']) ?></p>
     </div>

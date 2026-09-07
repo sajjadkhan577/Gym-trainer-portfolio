@@ -20,12 +20,6 @@ if (!$message) {
     exit;
 }
 
-// Mark as read if it's new
-if ($message['status'] == 'new') {
-    $stmt = $pdo->prepare("UPDATE contact_messages SET status = 'read' WHERE id = :id");
-    $stmt->execute([':id' => $id]);
-    $message['status'] = 'read';
-}
 ?>
 <main class="flex-1 min-h-0">
 <?php require_once __DIR__ . '/includes/admin-topbar.php'; ?>
@@ -90,9 +84,9 @@ if ($message['status'] == 'new') {
             <span class="material-symbols-outlined text-[18px]">reply</span> Reply via Email
         </a>
         <?php if ($message['status'] != 'replied'): ?>
-        <a href="messages.php?action=replied&id=<?= $message['id'] ?>&csrf_token=<?= $csrf_token ?>" class="btn-ghost px-6 py-2 rounded-DEFAULT font-label-caps text-label-caps">
+        <form method="POST" action="messages.php" class="inline"><input type="hidden" name="action" value="replied"><input type="hidden" name="id" value="<?= (int)$message['id'] ?>"><input type="hidden" name="csrf_token" value="<?= htmlspecialchars($csrf_token, ENT_QUOTES, 'UTF-8') ?>"><button type="submit" class="btn-ghost px-6 py-2 rounded-DEFAULT font-label-caps text-label-caps">
             Mark as Replied
-        </a>
+        </button></form>
         <?php endif; ?>
     </div>
 </div>

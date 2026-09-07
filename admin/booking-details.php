@@ -76,11 +76,11 @@ if (!$booking) {
         
         <div class="mt-8 flex gap-4">
             <?php if ($booking['status'] == 'pending'): ?>
-            <a href="bookings.php?action=confirmed&id=<?= $booking['id'] ?>&csrf_token=<?= $csrf_token ?>" class="btn-primary px-6 py-2 rounded-DEFAULT font-label-caps text-label-caps">Confirm Booking</a>
-            <a href="bookings.php?action=rejected&id=<?= $booking['id'] ?>&csrf_token=<?= $csrf_token ?>" class="bg-error/20 text-error border border-error px-6 py-2 rounded-DEFAULT font-label-caps text-label-caps">Reject</a>
+            <form method="POST" action="bookings.php" class="inline"><input type="hidden" name="action" value="confirmed"><input type="hidden" name="id" value="<?= (int)$booking['id'] ?>"><input type="hidden" name="csrf_token" value="<?= htmlspecialchars($csrf_token, ENT_QUOTES, 'UTF-8') ?>"><button type="submit" class="btn-primary px-6 py-2 rounded-DEFAULT font-label-caps text-label-caps">Confirm Booking</button></form>
+            <form method="POST" action="bookings.php" class="inline"><input type="hidden" name="action" value="cancelled"><input type="hidden" name="id" value="<?= (int)$booking['id'] ?>"><input type="hidden" name="csrf_token" value="<?= htmlspecialchars($csrf_token, ENT_QUOTES, 'UTF-8') ?>"><button type="submit" class="bg-error/20 text-error border border-error px-6 py-2 rounded-DEFAULT font-label-caps text-label-caps">Reject</button></form>
             <?php endif; ?>
             <?php if ($booking['status'] == 'confirmed'): ?>
-            <a href="bookings.php?action=completed&id=<?= $booking['id'] ?>&csrf_token=<?= $csrf_token ?>" class="bg-blue-500/20 text-blue-400 border border-blue-500 px-6 py-2 rounded-DEFAULT font-label-caps text-label-caps">Mark Completed</a>
+            <form method="POST" action="bookings.php" class="inline"><input type="hidden" name="action" value="completed"><input type="hidden" name="id" value="<?= (int)$booking['id'] ?>"><input type="hidden" name="csrf_token" value="<?= htmlspecialchars($csrf_token, ENT_QUOTES, 'UTF-8') ?>"><button type="submit" class="bg-blue-500/20 text-blue-400 border border-blue-500 px-6 py-2 rounded-DEFAULT font-label-caps text-label-caps">Mark Completed</button></form>
             <?php endif; ?>
         </div>
     </div>

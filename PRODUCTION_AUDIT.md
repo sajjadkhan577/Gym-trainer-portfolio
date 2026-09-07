@@ -5,7 +5,7 @@ Scope: PHP application, Apache configuration, database layer, authentication, fo
 
 ## Current status
 
-**NOT READY FOR PRODUCTION until the remaining items in this report are completed and tested on the target host.** The application is suitable for continued staging validation. No claim of complete penetration-test coverage is made from static review alone.
+**NOT READY FOR PRODUCTION until the historical credential is rotated and the manual hosting tests are completed.** No claim of complete penetration-test coverage is made from static review alone.
 
 ## Findings
 
@@ -21,21 +21,11 @@ Scope: PHP application, Apache configuration, database layer, authentication, fo
   - Risk: the abstraction still accepts raw trusted SQL conditions. Current callers were reviewed and use fixed application expressions, but future user-controlled clauses must never be passed to these methods.
   - Mitigation: table, column, ordering, and limit identifiers are centrally validated; continue using placeholders for every value.
 
-- **State-changing admin actions use GET requests**
-  - Files: `admin/blog.php`, `admin/bookings.php`, `admin/gallery.php`, `admin/messages.php`, `admin/programs.php`, `admin/services.php`, `admin/testimonials.php`, `admin/transformations.php`.
-  - Risk: CSRF tokens are checked, but GET actions can be triggered by links, crawlers, browser prefetch, or leaked URLs.
-  - Required mitigation: convert status, delete, and logout actions to POST forms and reject non-POST state changes.
-
 - **Blog editor content policy is not a rich-HTML sanitizer**
   - File: `admin/blog-form.php` and `blog-post.php`.
   - Current display escapes blog content, so stored HTML is shown as text. If rich HTML is enabled later, add a strict allowlist sanitizer before rendering.
 
 ### Medium
-
-- **Admin login throttling is session-based**
-  - File: `admin/login.php`.
-  - Risk: an attacker can bypass the counter with new sessions or IPs.
-  - Required mitigation: add a database or hosting-level IP/email rate limiter before public launch.
 
 - **Demo data is included in `database/schema.sql`**
   - Risk: importing the schema without review can place fictional content and external image URLs into production.
@@ -45,15 +35,13 @@ Scope: PHP application, Apache configuration, database layer, authentication, fo
   - File: `config/config.php`.
   - Apache denies the log, but production hosting should preferably set an error log path outside the document root.
 
-- **Public diagnostic/test scripts remain in the source tree**
-  - Files include `database_test.php`, `page_audit.php`, `comprehensive_test.php`, and `seo_test.php`.
-  - Required mitigation: remove them from the deployed document root or protect them with administrator-only access.
+- Public diagnostic and test scripts have been removed from the production document root.
 
 ### Low / Informational
 
 - `X-XSS-Protection` is retained for older clients but is obsolete in modern browsers.
 - External CDN fonts, Tailwind, and image URLs require an outbound network connection and should be pinned or self-hosted if the production threat model requires supply-chain control.
-- The default local URL remains in `.env.example` and development documentation by design; production `.env` must override it.
+- Localhost values remain only in `.env.example` and local development documentation; production `.env` and `robots.txt` must be configured with the real HTTPS domain.
 
 ## Fixes applied in this audit
 
@@ -66,9 +54,13 @@ Scope: PHP application, Apache configuration, database layer, authentication, fo
 - Removed the old default admin-password output.
 - Fixed admin password changes to update the authenticated database user and require CSRF.
 - Added login failure throttling and session regeneration on successful login.
+- Added database-backed rolling login throttling by normalized email and IP address.
+- Converted admin state changes to POST-only forms with server-side CSRF and ID validation.
+- Removed the message-detail GET status mutation.
 - Added CSRF protection to coach profile updates and secure POST logout.
 - Fixed blog query limit calls to remain compatible with validated query limits.
 - Added `database/production-schema.sql` with schema only and no demo rows or credentials.
+- Removed public diagnostic scripts and stale links to them.
 
 ## Verification performed
 
@@ -76,8 +68,11 @@ Scope: PHP application, Apache configuration, database layer, authentication, fo
 - Apache returned `200` for the homepage and a clean public route.
 - Apache returned `403` for configuration, `.env`, and upload log paths.
 - Apache returned `404` for an unknown clean route and the correct canonical URL for `/about`.
+- Direct unauthenticated access to `admin/index.php` returned `302` to `login.php`.
+- Static audit found no remaining admin mutation endpoints accepting action or CSRF values from GET.
+- Static audit found no remaining public diagnostic-script references.
 - Repository audit found no committed `.env` or runtime log.
 
 ## Remaining quality gate
 
-Before production: convert GET mutations to POST, remove/protect diagnostic scripts, review schema seed data, set a private production error log, test all forms and uploads on the hosting account, verify HTTPS cookies, and perform a manual authenticated user-flow test with disposable data.
+Before production: rotate any administrator credential affected by the historical exposure, import the login-attempts migration if upgrading an existing database, review schema seed data, set a private production error log, test all forms and uploads on the hosting account, verify HTTPS cookies, and perform a manual authenticated user-flow test with disposable data.
