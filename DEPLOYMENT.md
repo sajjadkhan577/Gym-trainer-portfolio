@@ -21,7 +21,7 @@ This application is designed for standard Apache shared hosting with PHP and MyS
 
 ## Database
 
-Import `database/schema.sql` into the new database using phpMyAdmin. The file contains demo content intended for initial setup; review and replace it before importing private or real client data. Never import real production data into a public repository.
+Import `database/production-schema.sql` into the new database using phpMyAdmin. This file creates tables without demo content. Use `database/schema.sql` only for local/demo setup; it contains sample rows and external image URLs.
 
 Run `database/migrations/create_admins_table.sql` after the schema if the `admins` table is not already present. Create the first administrator using a locally generated `password_hash()` value and a unique password. The repository contains no default admin password.
 

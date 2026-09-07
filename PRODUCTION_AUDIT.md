@@ -68,6 +68,7 @@ Scope: PHP application, Apache configuration, database layer, authentication, fo
 - Added login failure throttling and session regeneration on successful login.
 - Added CSRF protection to coach profile updates and secure POST logout.
 - Fixed blog query limit calls to remain compatible with validated query limits.
+- Added `database/production-schema.sql` with schema only and no demo rows or credentials.
 
 ## Verification performed
 
