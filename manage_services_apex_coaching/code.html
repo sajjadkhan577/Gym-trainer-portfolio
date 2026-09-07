@@ -1,0 +1,480 @@
+<!DOCTYPE html><html class="dark" lang="en" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Elite Admin - Services Management</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&amp;family=Inter:wght@400&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-fixed": "#e5e2e1",
+                        "surface-container-highest": "#33343c",
+                        "secondary-fixed-dim": "#c8c6c5",
+                        "on-background": "#e2e1eb",
+                        "on-secondary-fixed": "#1c1b1b",
+                        "primary-fixed-dim": "#4ae176",
+                        "on-error": "#690005",
+                        "on-secondary-fixed-variant": "#474646",
+                        "surface-container": "#1e1f26",
+                        "tertiary-container": "#acacac",
+                        "inverse-surface": "#e2e1eb",
+                        "outline-variant": "#3d4a3d",
+                        "on-surface": "#e2e1eb",
+                        "error": "#ffb4ab",
+                        "inverse-on-surface": "#2f3037",
+                        "on-secondary-container": "#bab8b7",
+                        "surface": "#12131a",
+                        "error-container": "#93000a",
+                        "primary-fixed": "#6bff8f",
+                        "on-tertiary-fixed-variant": "#474747",
+                        "surface-container-lowest": "#0c0e14",
+                        "background": "#12131a",
+                        "on-tertiary-fixed": "#1b1b1b",
+                        "on-primary-fixed-variant": "#005321",
+                        "inverse-primary": "#006e2f",
+                        "surface-dim": "#12131a",
+                        "outline": "#869585",
+                        "on-surface-variant": "#bccbb9",
+                        "on-primary-container": "#004b1e",
+                        "tertiary-fixed-dim": "#c6c6c6",
+                        "on-tertiary-container": "#404040",
+                        "surface-container-low": "#1a1b22",
+                        "surface-variant": "#33343c",
+                        "on-primary": "#003915",
+                        "on-error-container": "#ffdad6",
+                        "on-secondary": "#313030",
+                        "tertiary-fixed": "#e2e2e2",
+                        "secondary-container": "#4a4949",
+                        "on-tertiary": "#303030",
+                        "secondary": "#c8c6c5",
+                        "primary": "#4be277",
+                        "tertiary": "#c7c7c7",
+                        "surface-tint": "#4ae176",
+                        "on-primary-fixed": "#002109",
+                        "surface-container-high": "#282a31",
+                        "surface-bright": "#383940",
+                        "primary-container": "#22c55e"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "base": "8px",
+                        "margin-desktop": "64px",
+                        "margin-mobile": "20px",
+                        "container-max": "1280px",
+                        "gutter": "24px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Montserrat"],
+                        "body-lg": ["Inter"],
+                        "headline-md": ["Montserrat"],
+                        "label-caps": ["Montserrat"],
+                        "display-xl": ["Montserrat"],
+                        "headline-lg-mobile": ["Montserrat"],
+                        "body-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["48px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "800" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "headline-md": ["32px", { "lineHeight": "1.3", "fontWeight": "700" }],
+                        "label-caps": ["12px", { "lineHeight": "1", "letterSpacing": "0.1em", "fontWeight": "700" }],
+                        "display-xl": ["72px", { "lineHeight": "1.1", "letterSpacing": "-0.04em", "fontWeight": "900" }],
+                        "headline-lg-mobile": ["32px", { "lineHeight": "1.2", "fontWeight": "800" }],
+                        "body-md": ["16px", { "lineHeight": "1.5", "fontWeight": "400" }]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        /* Glassmorphism utility classes */
+        .glass-panel {
+            background-color: rgba(30, 31, 38, 0.7); /* surface-container with opacity */
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .glass-header {
+            background-color: rgba(18, 19, 26, 0.7); /* surface with opacity */
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Custom Toggle */
+        .toggle-checkbox:checked {
+            right: 0;
+            border-color: #22C55E; /* primary-container */
+        }
+        .toggle-checkbox:checked + .toggle-label {
+            background-color: #22C55E; /* primary-container */
+        }
+        .toggle-checkbox:checked + .toggle-label:after {
+            transform: translateX(100%);
+        }
+        
+        /* Button Glow */
+        .btn-glow:hover {
+            box-shadow: 0 0 20px rgba(34, 197, 94, 0.5); /* primary-container glow */
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #12131a; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #33343c; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #4a4949; 
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-md text-body-md selection:bg-primary-container selection:text-black">
+<!-- TopAppBar (Hidden on mobile, flex on md+) -->
+<header class="hidden md:flex justify-between items-center px-margin-desktop h-16 fixed top-0 right-0 w-[calc(100%-16rem)] z-40 bg-surface/70 dark:bg-surface/70 text-primary dark:text-primary font-body-md text-body-md backdrop-blur-[20px] border-b border-white/10 flat no shadows">
+<!-- Search Bar (on_left) -->
+<div class="flex-1 flex items-center">
+<div class="relative w-96">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="w-full bg-surface-container-low border-b border-white/10 rounded-t focus:border-primary-container focus:ring-0 focus:outline-none pl-10 pr-4 py-2 text-on-surface placeholder-on-surface-variant transition-colors bg-opacity-50 backdrop-blur-md" placeholder="Search services..." type="text">
+</div>
+</div>
+<!-- Trailing Icons -->
+<div class="flex items-center gap-6">
+<button aria-label="notifications" class="text-on-surface-variant hover:text-primary transition-colors Active: opacity-80">
+<span class="material-symbols-outlined" data-icon="notifications" style="font-variation-settings: 'FILL' 0;">notifications</span>
+</button>
+<button aria-label="account_circle" class="text-on-surface-variant hover:text-primary transition-colors Active: opacity-80">
+<span class="material-symbols-outlined" data-icon="account_circle" style="font-variation-settings: 'FILL' 0;">account_circle</span>
+</button>
+</div>
+</header>
+<!-- SideNavBar (Hidden on mobile, fixed on md+) -->
+<nav class="hidden md:flex flex-col h-screen py-base bg-surface dark:bg-surface text-primary dark:text-primary font-body-md text-body-md w-64 fixed left-0 top-0 bg-surface-container dark:bg-surface-container-low border-r border-white/10 backdrop-blur-[30px] shadow-xl z-50"><!-- Header -->
+<div class="px-6 py-8 flex flex-col items-start gap-4">
+<div class="w-12 h-12 rounded-full overflow-hidden border-2 border-primary-container">
+<img alt="Coach Profile Picture" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCMjvh72ljFYew2ZHMp8nzfI7T9Zjn76O0AvJRbgOPdqA0NrYWsClxsGfhzHwlV4howj6l95GO6Ynw1bwTgg1fBOg-pomuBbZzNPBUJ73XAwZQtS8ebcen5e3hORx0evc9CnBqDlrvWXvmBr3OXSPK3Oigl05oXEgnPFPbzuoGJ67CHTec-b3lqE5fcL4AuICJ36G1-UZo77oRD1RSoyuRHwKTVWqbo2AwmGB4uiX97ai00wEF_Y6U5ng">
+</div>
+<div>
+<h1 class="font-headline-md text-headline-md font-extrabold text-on-surface">APEX COACHING</h1>
+<p class="text-on-surface-variant text-sm mt-1">Elite Admin Access</p>
+</div>
+</div>
+<!-- Navigation Links -->
+<div class="flex-1 overflow-y-auto mt-4">
+<ul class="space-y-1">
+<li class="">
+<a class="flex items-center gap-base px-4 py-3 text-on-surface-variant hover:text-on-surface hover:bg-white/5 transition-all duration-300 Active: scale-95 duration-200" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="">Dashboard</span>
+</a>
+</li>
+<li class="">
+<a class="flex items-center gap-base px-4 py-3 text-on-surface-variant hover:text-on-surface hover:bg-white/5 transition-all duration-300 Active: scale-95 duration-200" href="#">
+<span class="material-symbols-outlined">calendar_today</span>
+<span class="">Bookings</span>
+</a>
+</li>
+<li class="">
+<a class="flex items-center gap-base px-4 py-3 text-on-surface-variant hover:text-on-surface hover:bg-white/5 transition-all duration-300 Active: scale-95 duration-200" href="#">
+<span class="material-symbols-outlined">chat</span>
+<span class="">Messages</span>
+</a>
+</li>
+<li class="">
+<a class="flex items-center gap-base px-4 py-3 bg-primary/10 text-primary border-r-4 border-primary transition-all duration-300 Active: scale-95 duration-200" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">fitness_center</span>
+<span class="font-bold">Services</span>
+</a>
+</li>
+<li class="">
+<a class="flex items-center gap-base px-4 py-3 text-on-surface-variant hover:text-on-surface hover:bg-white/5 transition-all duration-300 Active: scale-95 duration-200" href="#">
+<span class="material-symbols-outlined">list_alt</span>
+<span class="">Programs</span>
+</a>
+</li>
+<li class="">
+<a class="flex items-center gap-base px-4 py-3 text-on-surface-variant hover:text-on-surface hover:bg-white/5 transition-all duration-300 Active: scale-95 duration-200" href="#">
+<span class="material-symbols-outlined">auto_awesome</span>
+<span class="">Transformations</span>
+</a>
+</li>
+<li class="">
+<a class="flex items-center gap-base px-4 py-3 text-on-surface-variant hover:text-on-surface hover:bg-white/5 transition-all duration-300 Active: scale-95 duration-200" href="#">
+<span class="material-symbols-outlined">photo_library</span>
+<span class="">Gallery</span>
+</a>
+</li>
+<li class="">
+<a class="flex items-center gap-base px-4 py-3 text-on-surface-variant hover:text-on-surface hover:bg-white/5 transition-all duration-300 Active: scale-95 duration-200" href="#">
+<span class="material-symbols-outlined">format_quote</span>
+<span class="">Testimonials</span>
+</a>
+</li>
+<li class="">
+<a class="flex items-center gap-base px-4 py-3 text-on-surface-variant hover:text-on-surface hover:bg-white/5 transition-all duration-300 Active: scale-95 duration-200" href="#">
+<span class="material-symbols-outlined">article</span>
+<span class="">Blog</span>
+</a>
+</li>
+</ul>
+</div>
+<!-- Bottom Links -->
+<div class="mt-auto border-t border-white/10 pt-4">
+<ul class="space-y-1">
+<li class="">
+<a class="flex items-center gap-base px-4 py-3 text-on-surface-variant hover:text-on-surface hover:bg-white/5 transition-all duration-300 Active: scale-95 duration-200" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="">Profile</span>
+</a>
+</li>
+<li class="">
+<a class="flex items-center gap-base px-4 py-3 text-on-surface-variant hover:text-on-surface hover:bg-white/5 transition-all duration-300 Active: scale-95 duration-200" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="">Settings</span>
+</a>
+</li>
+</ul>
+</div></nav>
+<!-- Main Content Area -->
+<main class="md:ml-64 pt-24 md:pt-24 pb-20 px-margin-mobile md:px-margin-desktop min-h-screen">
+<!-- Page Header & Action -->
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-12 gap-6">
+<div>
+<h2 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface mb-2">Services Management</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant">Configure and organize your elite coaching offerings.</p>
+</div>
+<button class="bg-primary-container text-black font-label-caps text-label-caps px-8 py-4 rounded uppercase tracking-widest flex items-center gap-2 btn-glow transition-all duration-300">
+<span class="material-symbols-outlined">add</span>
+                Add Service
+            </button>
+</div>
+<!-- Filters / Tabs (Glass style) -->
+<div class="flex gap-4 mb-8 overflow-x-auto pb-4 no-scrollbar">
+<button class="glass-panel px-6 py-2 rounded-full text-primary border-primary font-label-caps text-label-caps uppercase tracking-widest whitespace-nowrap">All Services</button>
+<button class="glass-panel px-6 py-2 rounded-full text-on-surface-variant hover:text-on-surface hover:border-white/30 transition-colors font-label-caps text-label-caps uppercase tracking-widest whitespace-nowrap border-transparent">1-on-1 Training</button>
+<button class="glass-panel px-6 py-2 rounded-full text-on-surface-variant hover:text-on-surface hover:border-white/30 transition-colors font-label-caps text-label-caps uppercase tracking-widest whitespace-nowrap border-transparent">Online Coaching</button>
+<button class="glass-panel px-6 py-2 rounded-full text-on-surface-variant hover:text-on-surface hover:border-white/30 transition-colors font-label-caps text-label-caps uppercase tracking-widest whitespace-nowrap border-transparent">Nutrition</button>
+</div>
+<!-- Bento Grid Layout for Services -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<!-- Service Card 1 (Large - Spans 8 cols) -->
+<div class="md:col-span-8 glass-panel rounded-xl overflow-hidden relative group h-[400px]">
+<div class="absolute inset-0 z-0">
+<div class="bg-cover bg-center w-full h-full opacity-60 group-hover:opacity-80 transition-opacity duration-500" data-alt="A dramatic, wide-angle shot of a high-end underground fitness facility. Raw concrete walls contrast with sleek, matte black lifting equipment. Intense, directional spotlighting creates deep shadows, while subtle neon green floor LEDs add a cyber-athletic vibe. A focused athlete is seen mid-lift in the background. Dark mode, glassmorphism aesthetic." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDBs-tVPxs_UAA6Pn9fwYYaOGiwqATq0Lg0l95ezPJ5AD7QOwuFCoGuOlE3aj9Nt1DofWApdzvh0qZpv0T_OhwsE8jECLGly_BRG7gTrSIWdkXRYav8VN8rcPMk1ABByJUXecE6uqF-0KgYYYuJQn5U9tIIW5iL67nRv-kcnBMW8M21uZMXyl00TSljH_5y9VltjggRqDI5L-9MaTlj1Gz7FzLuP61D8PmLCfgLBz7geCnU4V0BS0xAzA')"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-surface via-surface/80 to-transparent"></div>
+</div>
+<div class="relative z-10 p-6 flex flex-col h-full justify-between">
+<div class="flex justify-between items-start">
+<span class="bg-primary/20 text-primary border border-primary/30 px-3 py-1 rounded font-label-caps text-[10px] uppercase tracking-widest backdrop-blur-sm">Most Popular</span>
+<!-- Toggle -->
+<div class="flex items-center">
+<label class="flex items-center cursor-pointer">
+<div class="relative">
+<input checked="" class="sr-only toggle-checkbox" type="checkbox">
+<div class="block bg-surface-container-high w-10 h-6 rounded-full border border-white/20 transition-colors toggle-label"></div>
+<div class="dot absolute left-1 top-1 bg-white w-4 h-4 rounded-full transition transform shadow-sm" style="transform: translateX(100%);"></div>
+</div>
+<span class="ml-3 font-label-caps text-xs text-on-surface-variant uppercase">Active</span>
+</label>
+</div>
+</div>
+<div>
+<div class="flex justify-between items-end mb-4">
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-2">Elite Personal Training</h3>
+<p class="text-on-surface-variant max-w-md line-clamp-2">Comprehensive 1-on-1 coaching focusing on strength, hypertrophy, and optimal performance mechanics in a private setting.</p>
+</div>
+<div class="text-right">
+<span class="block font-display-xl text-[48px] font-black text-white leading-none">$150</span>
+<span class="text-on-surface-variant text-sm">/ session</span>
+</div>
+</div>
+<div class="flex gap-4 border-t border-white/10 pt-4 mt-4">
+<button class="text-on-surface hover:text-primary transition-colors flex items-center gap-2 text-sm">
+<span class="material-symbols-outlined text-[18px]">edit</span> Edit
+                            </button>
+<button class="text-on-surface hover:text-primary transition-colors flex items-center gap-2 text-sm">
+<span class="material-symbols-outlined text-[18px]">group</span> View Clients
+                            </button>
+</div>
+</div>
+</div>
+</div>
+<!-- Service Card 2 (Small - Spans 4 cols) -->
+<div class="md:col-span-4 glass-panel rounded-xl overflow-hidden relative group h-[400px] flex flex-col">
+<div class="h-48 relative overflow-hidden">
+<div class="bg-cover bg-center w-full h-full opacity-60 group-hover:opacity-80 transition-opacity duration-500 group-hover:scale-105" data-alt="A close-up, high-contrast shot of a sleek smartphone displaying a premium fitness app dashboard. The phone rests on a dark, textured gym mat next to a matte black kettlebell. Sharp focus on the screen showing performance metrics. Lighting is moody and cinematic, emphasizing the dark mode UI of the app with neon green highlights." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuD267mH3L1ws1J-lHNfXe180lwfSrDbsKIfm16idt3eQ9Li8RGir5KAwdY8Gm6EBg2W7vOsWpjuxzsEQPp_7eZR10nDMWAb62y2wEqLBdvk9Y6xaadK4tROF6DTbR57jHbeWP7gJlASUed5d2XWDzY8LQl7sR0Kdu4Hgb78eAKCa5HXYUu8N41MdL8Al_YKvmmkk5A3gFc7Yq7YPr3KOWmWlSnuWa6BG4PY1KfO3CL7Uwx7VmAf5sP_Vg')"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-surface to-transparent"></div>
+</div>
+<div class="p-6 flex-1 flex flex-col justify-between relative z-10 -mt-12">
+<div class="flex justify-end mb-2">
+<!-- Toggle -->
+<label class="flex items-center cursor-pointer">
+<div class="relative">
+<input checked="" class="sr-only toggle-checkbox" type="checkbox">
+<div class="block bg-surface-container-high w-10 h-6 rounded-full border border-white/20 transition-colors toggle-label"></div>
+<div class="dot absolute left-1 top-1 bg-white w-4 h-4 rounded-full transition transform shadow-sm" style="transform: translateX(100%);"></div>
+</div>
+</label>
+</div>
+<div>
+<h3 class="font-headline-md text-[24px] font-bold text-on-surface mb-2 leading-tight">Online Remote Coaching</h3>
+<p class="text-on-surface-variant text-sm mb-4 line-clamp-3">Customized programming, weekly check-ins, and video form review delivered via our elite performance app.</p>
+<div class="flex justify-between items-center border-t border-white/10 pt-4">
+<div>
+<span class="block font-headline-md text-[28px] font-black text-white leading-none">$299</span>
+<span class="text-on-surface-variant text-xs">/ month</span>
+</div>
+<button class="w-10 h-10 rounded-full bg-surface-container border border-white/10 flex items-center justify-center hover:border-primary hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[20px]">edit</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Service Card 3 (Small - Spans 4 cols) -->
+<div class="md:col-span-4 glass-panel rounded-xl overflow-hidden relative group h-[400px] flex flex-col">
+<div class="h-48 relative overflow-hidden">
+<div class="bg-cover bg-center w-full h-full opacity-60 group-hover:opacity-80 transition-opacity duration-500 group-hover:scale-105" data-alt="A stylized overhead shot of high-performance nutrition prep. Sleek, matte black containers filled with vibrant, precision-cut vegetables and lean proteins. Arranged geometrically on a dark slate surface. Subtle edge lighting accents the textures. The aesthetic is clean, calculating, and premium, fitting a high-end athletic brand." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBeUWwH_WRFR1nn8uvkhNAX8E-73kY7te6wbscBl032ixY3Rexya8bTwwK-R3LeBUJmIJkXG8w-6aN6pxvqXm-_XuefhJ7c_oLC88wOUlBuWhguks3WdmpSoLLDsUBgor2lur4ArCYDI1oDEv3A99HwiJZpS_AzUVUtpc5J3kQzS4TCxZq-QKhEJaM6aV8D-ZELKkBgUQBoVGvN99vH5IsUi7mA14gO6Kb2nYBYZou6ZiyHue4Qvs1AiA')"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-surface to-transparent"></div>
+</div>
+<div class="p-6 flex-1 flex flex-col justify-between relative z-10 -mt-12">
+<div class="flex justify-end mb-2">
+<!-- Toggle (Inactive) -->
+<label class="flex items-center cursor-pointer">
+<div class="relative">
+<input class="sr-only toggle-checkbox" type="checkbox">
+<div class="block bg-surface-container-high w-10 h-6 rounded-full border border-white/20 transition-colors toggle-label"></div>
+<div class="dot absolute left-1 top-1 bg-on-surface-variant w-4 h-4 rounded-full transition transform shadow-sm" style="transform: translateX(0px);"></div>
+</div>
+</label>
+</div>
+<div>
+<h3 class="font-headline-md text-[24px] font-bold text-on-surface mb-2 leading-tight">Precision Nutrition</h3>
+<p class="text-on-surface-variant text-sm mb-4 line-clamp-3">Macro-calculated meal planning and nutritional periodization designed to fuel intense training cycles.</p>
+<div class="flex justify-between items-center border-t border-white/10 pt-4">
+<div>
+<span class="block font-headline-md text-[28px] font-black text-white/50 leading-none">$199</span>
+<span class="text-on-surface-variant text-xs">/ month</span>
+</div>
+<button class="w-10 h-10 rounded-full bg-surface-container border border-white/10 flex items-center justify-center hover:border-primary hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[20px]">edit</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Service Card 4 (Medium - Spans 8 cols) -->
+<div class="md:col-span-8 glass-panel rounded-xl overflow-hidden relative group h-[400px]">
+<div class="absolute inset-0 z-0">
+<div class="bg-cover bg-center w-full h-full opacity-60 group-hover:opacity-80 transition-opacity duration-500" data-alt="A low-angle, powerful image of a small group training session in a dark, elite gym. Silhouettes of athletes performing synchronized kettlebell swings against a backdrop of brushed steel and concrete. Atmospheric smoke and dramatic backlighting create depth. The mood is intense, exclusive, and focused on collective performance." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAZVaLRtffWsIfPAbJ9UGMQpPih9IWn10WFj50jCOQjYOSvh87V0BADAEON5vA3Ml7scxni3KB0cTTFLchEzKz-5VqNwGSoE2nVAaP9Wy-UnQdUcbehFfA_a4T0tpf4ErJz0PE8m2inYCBAAZOpMyC6KOFLtvbAC-Vvy7o-y_vULh2Lup5Niaj8gl_GF1W0dwXLrHhPL4FewU1fXmP_KBaakwuLOz-zFko4gnrqOaOwx7h4nOqqoKIlKA')"></div>
+<div class="absolute inset-0 bg-gradient-to-r from-surface via-surface/90 to-transparent"></div>
+</div>
+<div class="relative z-10 p-6 flex flex-col h-full justify-between w-full md:w-2/3">
+<div class="flex justify-between items-start">
+<span class="bg-surface-container/50 text-white border border-white/20 px-3 py-1 rounded font-label-caps text-[10px] uppercase tracking-widest backdrop-blur-sm">Small Group</span>
+</div>
+<div>
+<div class="mb-6">
+<h3 class="font-headline-md text-headline-md text-on-surface mb-2">Alpha Squad Training</h3>
+<p class="text-on-surface-variant mb-6">High-intensity functional training in a highly competitive small group environment. Capped at 4 athletes per session to ensure coaching quality.</p>
+<div class="flex items-center gap-6">
+<div>
+<span class="block font-headline-md text-[36px] font-black text-white leading-none">$65</span>
+<span class="text-on-surface-variant text-sm">/ session</span>
+</div>
+<div class="h-10 w-px bg-white/20"></div>
+<div>
+<span class="block text-white font-bold text-lg">Max 4</span>
+<span class="text-on-surface-variant text-sm">Capacity</span>
+</div>
+</div>
+</div>
+<div class="flex gap-4 border-t border-white/10 pt-4">
+<button class="bg-surface-container-high border border-white/10 hover:border-primary text-white hover:text-primary px-4 py-2 rounded font-label-caps text-xs uppercase tracking-wider transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px]">edit</span> Edit Details
+                            </button>
+<label class="flex items-center cursor-pointer ml-auto">
+<span class="mr-3 font-label-caps text-xs text-on-surface-variant uppercase">Active</span>
+<div class="relative">
+<input checked="" class="sr-only toggle-checkbox" type="checkbox">
+<div class="block bg-surface-container-high w-10 h-6 rounded-full border border-white/20 transition-colors toggle-label"></div>
+<div class="dot absolute left-1 top-1 bg-white w-4 h-4 rounded-full transition transform shadow-sm" style="transform: translateX(100%);"></div>
+</div>
+</label>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Mobile Bottom NavBar (Visible only on mobile) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full glass-header z-50 px-4 py-2 flex justify-between items-center">
+<a class="flex flex-col items-center p-2 text-on-surface-variant hover:text-primary" href="#">
+<span class="material-symbols-outlined text-[24px]">dashboard</span>
+<span class="text-[10px] mt-1 font-label-caps">Dash</span>
+</a>
+<a class="flex flex-col items-center p-2 text-on-surface-variant hover:text-primary" href="#">
+<span class="material-symbols-outlined text-[24px]">calendar_today</span>
+<span class="text-[10px] mt-1 font-label-caps">Book</span>
+</a>
+<!-- Active Mobile Tab -->
+<a class="flex flex-col items-center p-2 text-primary" href="#">
+<span class="material-symbols-outlined text-[24px]" style="font-variation-settings: 'FILL' 1;">fitness_center</span>
+<span class="text-[10px] mt-1 font-label-caps font-bold">Services</span>
+</a>
+<a class="flex flex-col items-center p-2 text-on-surface-variant hover:text-primary" href="#">
+<span class="material-symbols-outlined text-[24px]">chat</span>
+<span class="text-[10px] mt-1 font-label-caps">Chat</span>
+</a>
+<a class="flex flex-col items-center p-2 text-on-surface-variant hover:text-primary" href="#">
+<span class="material-symbols-outlined text-[24px]">person</span>
+<span class="text-[10px] mt-1 font-label-caps">Profile</span>
+</a>
+</nav>
+<script>
+        // Simple script to handle custom toggle animation logic if needed, 
+        // though CSS handles the visual state based on the :checked pseudo-class.
+        document.querySelectorAll('.toggle-checkbox').forEach(toggle => {
+            toggle.addEventListener('change', function() {
+                const dot = this.parentElement.querySelector('.dot');
+                if(this.checked) {
+                    dot.style.transform = 'translateX(100%)';
+                    dot.classList.remove('bg-on-surface-variant');
+                    dot.classList.add('bg-white');
+                } else {
+                    dot.style.transform = 'translateX(0)';
+                    dot.classList.remove('bg-white');
+                    dot.classList.add('bg-on-surface-variant');
+                }
+            });
+            
+            // Initialize state
+            const dot = toggle.parentElement.querySelector('.dot');
+            if(toggle.checked) {
+                dot.style.transform = 'translateX(100%)';
+                dot.classList.add('bg-white');
+            } else {
+                dot.style.transform = 'translateX(0)';
+                dot.classList.add('bg-on-surface-variant');
+            }
+        });
+    </script>
+
+
+</body></html>

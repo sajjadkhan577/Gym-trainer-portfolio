@@ -1,0 +1,22 @@
+{
+  "name": "Apex Elite Performance",
+  "short_name": "Apex",
+  "description": "Elite fitness coaching and performance training for serious athletes",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#12131a",
+  "theme_color": "#4be277",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/favicon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/favicon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

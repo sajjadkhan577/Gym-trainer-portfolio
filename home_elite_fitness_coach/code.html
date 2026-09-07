@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>APEX COACHING - Home</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Montserrat:wght@700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-bright": "#383940",
+                        "on-surface": "#e2e1eb",
+                        "primary-fixed-dim": "#4ae176",
+                        "surface": "#12131a",
+                        "on-background": "#e2e1eb",
+                        "tertiary-container": "#acacac",
+                        "primary": "#4be277",
+                        "tertiary": "#c7c7c7",
+                        "error-container": "#93000a",
+                        "surface-container-low": "#1a1b22",
+                        "on-secondary": "#313030",
+                        "on-tertiary": "#303030",
+                        "surface-dim": "#12131a",
+                        "background": "#12131a",
+                        "secondary-fixed": "#e5e2e1",
+                        "surface-container-lowest": "#0c0e14",
+                        "inverse-on-surface": "#2f3037",
+                        "on-primary-fixed": "#002109",
+                        "on-error": "#690005",
+                        "on-tertiary-container": "#404040",
+                        "tertiary-fixed": "#e2e2e2",
+                        "secondary": "#c8c6c5",
+                        "on-secondary-fixed-variant": "#474646",
+                        "secondary-fixed-dim": "#c8c6c5",
+                        "secondary-container": "#4a4949",
+                        "surface-container-high": "#282a31",
+                        "surface-variant": "#33343c",
+                        "on-primary-container": "#004b1e",
+                        "inverse-surface": "#e2e1eb",
+                        "surface-container-highest": "#33343c",
+                        "on-secondary-container": "#bab8b7",
+                        "on-tertiary-fixed-variant": "#474747",
+                        "surface-tint": "#4ae176",
+                        "surface-container": "#1e1f26",
+                        "tertiary-fixed-dim": "#c6c6c6",
+                        "primary-fixed": "#6bff8f",
+                        "error": "#ffb4ab",
+                        "on-tertiary-fixed": "#1b1b1b",
+                        "outline": "#869585",
+                        "on-primary-fixed-variant": "#005321",
+                        "inverse-primary": "#006e2f",
+                        "on-primary": "#003915",
+                        "outline-variant": "#3d4a3d",
+                        "on-surface-variant": "#bccbb9",
+                        "on-secondary-fixed": "#1c1b1b",
+                        "on-error-container": "#ffdad6",
+                        "primary-container": "#22c55e"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "container-max": "1280px",
+                        "gutter": "24px",
+                        "margin-mobile": "20px",
+                        "base": "8px",
+                        "margin-desktop": "64px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Inter"],
+                        "label-caps": ["Montserrat"],
+                        "display-xl": ["Montserrat"],
+                        "headline-lg": ["Montserrat"],
+                        "headline-md": ["Montserrat"],
+                        "headline-lg-mobile": ["Montserrat"],
+                        "body-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-md": ["16px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                        "label-caps": ["12px", { "lineHeight": "1", "letterSpacing": "0.1em", "fontWeight": "700" }],
+                        "display-xl": ["72px", { "lineHeight": "1.1", "letterSpacing": "-0.04em", "fontWeight": "900" }],
+                        "headline-lg": ["48px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "800" }],
+                        "headline-md": ["32px", { "lineHeight": "1.3", "fontWeight": "700" }],
+                        "headline-lg-mobile": ["32px", { "lineHeight": "1.2", "fontWeight": "800" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { background-color: theme('colors.background'); color: theme('colors.on-background'); }
+        .glass-panel {
+            background: rgba(18, 19, 26, 0.7);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .text-glow {
+            text-shadow: 0 0 10px rgba(75, 226, 119, 0.5);
+        }
+    </style>
+</head>
+<body class="antialiased overflow-x-hidden selection:bg-primary selection:text-on-primary">
+<!-- TopNavBar (Shared Component) -->
+<nav class="fixed top-0 w-full z-50 bg-surface/70 backdrop-blur-md border-b border-white/10 shadow-xl shadow-primary/5">
+<div class="flex justify-between items-center px-margin-mobile md:px-margin-desktop py-4 max-w-container-max mx-auto">
+<a class="font-headline-md text-headline-md font-black text-on-surface tracking-tighter active:scale-95 transition-transform" href="#">APEX COACHING</a>
+<!-- Desktop Navigation -->
+<div class="hidden md:flex items-center gap-8">
+<!-- Home is Active -->
+<a class="text-primary font-bold border-b-2 border-primary pb-1 font-body-md text-body-md uppercase tracking-wider hover:bg-white/5 transition-all duration-300" href="#">Home</a>
+<a class="text-on-surface/80 hover:text-primary transition-colors font-body-md text-body-md uppercase tracking-wider hover:bg-white/5 transition-all duration-300" href="#">About</a>
+<a class="text-on-surface/80 hover:text-primary transition-colors font-body-md text-body-md uppercase tracking-wider hover:bg-white/5 transition-all duration-300" href="#">Services</a>
+<a class="text-on-surface/80 hover:text-primary transition-colors font-body-md text-body-md uppercase tracking-wider hover:bg-white/5 transition-all duration-300" href="#">Programs</a>
+<a class="text-on-surface/80 hover:text-primary transition-colors font-body-md text-body-md uppercase tracking-wider hover:bg-white/5 transition-all duration-300" href="#">Blog</a>
+</div>
+<div class="hidden md:block">
+<button class="bg-primary text-on-primary font-label-caps text-label-caps px-6 py-3 rounded hover:shadow-[0_0_20px_theme('colors.primary')] transition-all duration-300 active:scale-95">Book Now</button>
+</div>
+<!-- Mobile Menu Toggle (Simplified for demo) -->
+<button class="md:hidden text-on-surface">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</div>
+</nav>
+<main>
+<!-- Hero Section -->
+<section class="relative min-h-screen flex items-center pt-24 pb-12">
+<!-- Background Image -->
+<div class="absolute inset-0 z-0">
+<div class="w-full h-full bg-cover bg-center bg-no-repeat" data-alt="A striking, high-contrast photograph of an elite fitness coach in a dimly lit, luxury underground gym. The coach is looking intensely at the camera, conveying determination and power. The lighting highlights their musculature and the premium gym equipment in the background. The scene uses a sophisticated dark charcoal palette with subtle, electric neon green practical lighting accents in the background, matching a dark mode glassmorphism UI aesthetic." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBBy2sxCDmXIZMiF5RqaSfuuGPx3GZexQEdcHBTxCDklQZGyjMmds5i95QhksA5NQXTi_bPGjJEpanAlNfh9Pm4mBVEoL8EwsMfpd0_VCMVCYSFoL3SvJWbPI7joifQ1tOAeivTBCohwNP5UjJaahcKMylTfZP3zYR-IW_Zue21gcx3PoKaNHXGHrqWTW54O3CCK0hl0TwEF287MPheL3aY2b6c6i1TAd1nnPwN2TERa7tSnmcURn8u0Q')"></div>
+<!-- Gradient Overlay -->
+<div class="absolute inset-0 bg-gradient-to-r from-background via-background/80 to-transparent"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent"></div>
+</div>
+<div class="relative z-10 w-full max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<div class="lg:col-span-8 flex flex-col justify-center">
+<span class="font-label-caps text-label-caps text-primary tracking-widest uppercase mb-4 block">Elite Training Academy</span>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile md:font-display-xl md:text-display-xl text-on-surface mb-6 uppercase">
+                        Elevate Your <br/><span class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-primary-fixed">Performance.</span>
+</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mb-10 border-l-2 border-primary pl-4">
+                        Professional Training &amp; Elite Coaching by Marcus Vance. Unlock your true potential through rigorous, science-backed methodology and uncompromising accountability.
+                    </p>
+<div class="flex flex-col sm:flex-row gap-4 mb-16">
+<button class="bg-primary text-on-primary font-label-caps text-label-caps px-8 py-4 rounded hover:shadow-[0_0_20px_theme('colors.primary')] transition-all duration-300">
+                            Book a Session
+                        </button>
+<button class="glass-panel text-on-surface font-label-caps text-label-caps px-8 py-4 rounded hover:border-primary/50 hover:bg-white/5 transition-all duration-300">
+                            View Services
+                        </button>
+</div>
+<!-- Stats Bento Row -->
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+<div class="glass-panel p-4 rounded-lg flex flex-col">
+<span class="font-headline-md text-headline-md text-primary mb-1">10+</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant">Years Exp.</span>
+</div>
+<div class="glass-panel p-4 rounded-lg flex flex-col">
+<span class="font-headline-md text-headline-md text-primary mb-1">500+</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant">Happy Clients</span>
+</div>
+<div class="glass-panel p-4 rounded-lg flex flex-col">
+<span class="font-headline-md text-headline-md text-primary mb-1">100+</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant">Programs</span>
+</div>
+<div class="glass-panel p-4 rounded-lg flex flex-col">
+<span class="font-headline-md text-headline-md text-primary mb-1">98%</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant">Success Rate</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Services Preview Section -->
+<section class="py-[120px] bg-surface-container-low relative">
+<div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
+<div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
+<div>
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile md:font-headline-lg md:text-headline-lg text-on-surface uppercase mb-4">Elite Capabilities</h2>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-xl">Comprehensive training protocols designed for maximum output and enduring resilience.</p>
+</div>
+<button class="glass-panel text-primary font-label-caps text-label-caps px-6 py-3 rounded flex items-center gap-2 hover:bg-white/5 transition-all duration-300">
+                        All Services <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</div>
+<!-- Bento Grid Services -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Service Card 1 -->
+<div class="group relative rounded-xl overflow-hidden glass-panel md:col-span-2 h-[400px]">
+<div class="absolute inset-0 z-0 transition-transform duration-700 group-hover:scale-105">
+<div class="w-full h-full bg-cover bg-center" data-alt="A dynamic action shot of an athlete performing a heavy barbell squat in a premium, dark-themed gym. The scene features deep charcoal tones, high contrast, and striking neon green accent lighting that emphasizes the athlete's muscular tension and focus, aligning perfectly with a high-end, dark mode fitness UI design." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuC_DdF1wIdij7vDMTXvHPPbWYm8qn52duh7cehUwvpjb07qrYaBeX9e80kA454gTy_Rnh61mNQgVzlpHXkwTJxye3HXZxkKdHknRKbMBOjalOfwrV7AeUMY8yNdkyqV_tqA2Qn-zCvcYpX4k08DHW0AcaM5sAoebAifWTdB0Rm0ztp0nX4fk4sSbyd0_U_zVbzbAQmAlYNFJHpXKFsups1ksdoMH1bPeswSgEixyQ2jZZ-cqVFCwNPY1w')"></div>
+</div>
+<div class="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent z-10"></div>
+<div class="absolute inset-0 z-20 p-8 flex flex-col justify-end">
+<div class="bg-primary/20 w-12 h-12 rounded flex items-center justify-center mb-4 border border-primary/30">
+<span class="material-symbols-outlined text-primary">fitness_center</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface uppercase mb-2">Strength &amp; Conditioning</h3>
+<p class="font-body-md text-body-md text-on-surface-variant line-clamp-2">Build raw power, functional strength, and explosive energy through periodized programming.</p>
+</div>
+</div>
+<!-- Service Card 2 -->
+<div class="group relative rounded-xl overflow-hidden glass-panel h-[400px]">
+<div class="absolute inset-0 z-0 transition-transform duration-700 group-hover:scale-105">
+<div class="w-full h-full bg-cover bg-center" data-alt="A close-up, dramatic image of a sprinter at the starting blocks on an indoor track. The lighting is cinematic, with strong shadows and a deep, moody atmosphere. Subtle neon green highlights accent the high-tech running shoes and track markers, perfectly fitting a sophisticated dark mode athletic aesthetic." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDK3huKDgq0q16WjHl2GZbrzS_OCd4hj5Z8NumwQ8rFL9jZrQWBiXSSzlfRTbnh4BmOSfktGYMmoOgVx9CzH5Poi8feBiv-QVyebESyAKb_blUEr_IwWwoqtBAGvaLTTzao3ek8jZcu_YS7-VhUp6PWywZ-YhM23zWSZOkWN1Lc5IoDWIWTAo0dT6oCIVrUDYsKhQKgSeZk5Si-3kCnoBHgR16DYWMS27r9Wh1r0d-DFBjbHmtQDVdTKQ')"></div>
+</div>
+<div class="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent z-10"></div>
+<div class="absolute inset-0 z-20 p-8 flex flex-col justify-end">
+<div class="bg-primary/20 w-12 h-12 rounded flex items-center justify-center mb-4 border border-primary/30">
+<span class="material-symbols-outlined text-primary">sprint</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface uppercase mb-2">Speed &amp; Agility</h3>
+<p class="font-body-md text-body-md text-on-surface-variant line-clamp-2">Enhance acceleration, deceleration, and multi-directional movement.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- CTA Section -->
+<section class="py-[120px] relative overflow-hidden">
+<!-- Abstract background element -->
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary/10 rounded-full blur-[120px] z-0 pointer-events-none"></div>
+<div class="max-w-3xl mx-auto px-margin-mobile md:px-margin-desktop relative z-10 text-center glass-panel p-16 rounded-2xl">
+<span class="material-symbols-outlined text-[48px] text-primary mb-6 block">bolt</span>
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile md:font-headline-lg md:text-headline-lg text-on-surface uppercase mb-6">Start Your Journey Today</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant mb-10">Stop settling for average. Commit to excellence and transform your potential into performance.</p>
+<button class="bg-primary text-on-primary font-label-caps text-label-caps px-10 py-5 rounded hover:shadow-[0_0_30px_theme('colors.primary')] transition-all duration-300 text-lg">
+                    CLAIM YOUR SPOT
+                </button>
+</div>
+</section>
+</main>
+<!-- Footer (Shared Component) -->
+<footer class="w-full relative bottom-0 bg-surface-container-lowest border-t border-white/5">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-base px-margin-mobile md:px-margin-desktop py-12 max-w-container-max mx-auto">
+<div class="md:col-span-1 flex flex-col gap-4">
+<span class="font-headline-md text-headline-md text-on-surface">APEX ELITE PERFORMANCE</span>
+<p class="font-body-sm text-body-md text-on-surface-variant">© 2024 APEX ELITE PERFORMANCE. ALL RIGHTS RESERVED.</p>
+</div>
+<div class="md:col-span-3 flex flex-wrap justify-end gap-x-8 gap-y-4">
+<a class="font-body-sm text-body-md text-on-surface-variant hover:text-primary-fixed transition-colors cursor-pointer" href="#">Privacy Policy</a>
+<a class="font-body-sm text-body-md text-on-surface-variant hover:text-primary-fixed transition-colors cursor-pointer" href="#">Terms of Service</a>
+<a class="font-body-sm text-body-md text-on-surface-variant hover:text-primary-fixed transition-colors cursor-pointer" href="#">FAQ</a>
+<a class="font-body-sm text-body-md text-on-surface-variant hover:text-primary-fixed transition-colors cursor-pointer" href="#">Careers</a>
+</div>
+</div>
+</footer>
+</body></html>

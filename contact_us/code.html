@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Contact | APEX COACHING</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&amp;family=Inter:wght@400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-bright": "#383940",
+                        "on-surface": "#e2e1eb",
+                        "primary-fixed-dim": "#4ae176",
+                        "surface": "#12131a",
+                        "on-background": "#e2e1eb",
+                        "tertiary-container": "#acacac",
+                        "primary": "#4be277",
+                        "tertiary": "#c7c7c7",
+                        "error-container": "#93000a",
+                        "surface-container-low": "#1a1b22",
+                        "on-secondary": "#313030",
+                        "on-tertiary": "#303030",
+                        "surface-dim": "#12131a",
+                        "background": "#12131a",
+                        "secondary-fixed": "#e5e2e1",
+                        "surface-container-lowest": "#0c0e14",
+                        "inverse-on-surface": "#2f3037",
+                        "on-primary-fixed": "#002109",
+                        "on-error": "#690005",
+                        "on-tertiary-container": "#404040",
+                        "tertiary-fixed": "#e2e2e2",
+                        "secondary": "#c8c6c5",
+                        "on-secondary-fixed-variant": "#474646",
+                        "secondary-fixed-dim": "#c8c6c5",
+                        "secondary-container": "#4a4949",
+                        "surface-container-high": "#282a31",
+                        "surface-variant": "#33343c",
+                        "on-primary-container": "#004b1e",
+                        "inverse-surface": "#e2e1eb",
+                        "surface-container-highest": "#33343c",
+                        "on-secondary-container": "#bab8b7",
+                        "on-tertiary-fixed-variant": "#474747",
+                        "surface-tint": "#4ae176",
+                        "surface-container": "#1e1f26",
+                        "tertiary-fixed-dim": "#c6c6c6",
+                        "primary-fixed": "#6bff8f",
+                        "error": "#ffb4ab",
+                        "on-tertiary-fixed": "#1b1b1b",
+                        "outline": "#869585",
+                        "on-primary-fixed-variant": "#005321",
+                        "inverse-primary": "#006e2f",
+                        "on-primary": "#003915",
+                        "outline-variant": "#3d4a3d",
+                        "on-surface-variant": "#bccbb9",
+                        "on-secondary-fixed": "#1c1b1b",
+                        "on-error-container": "#ffdad6",
+                        "primary-container": "#22c55e"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "container-max": "1280px",
+                        "gutter": "24px",
+                        "margin-mobile": "20px",
+                        "base": "8px",
+                        "margin-desktop": "64px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Inter"],
+                        "label-caps": ["Montserrat"],
+                        "display-xl": ["Montserrat"],
+                        "headline-lg": ["Montserrat"],
+                        "headline-md": ["Montserrat"],
+                        "headline-lg-mobile": ["Montserrat"],
+                        "body-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-md": ["16px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                        "label-caps": ["12px", { "lineHeight": "1", "letterSpacing": "0.1em", "fontWeight": "700" }],
+                        "display-xl": ["72px", { "lineHeight": "1.1", "letterSpacing": "-0.04em", "fontWeight": "900" }],
+                        "headline-lg": ["48px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "800" }],
+                        "headline-md": ["32px", { "lineHeight": "1.3", "fontWeight": "700" }],
+                        "headline-lg-mobile": ["32px", { "lineHeight": "1.2", "fontWeight": "800" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            background-color: theme('colors.background');
+            color: theme('colors.on-background');
+        }
+        .glass-panel {
+            background: rgba(18, 19, 26, 0.7);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .form-input {
+            background: rgba(18, 19, 26, 0.5);
+            border: none;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            color: theme('colors.on-surface');
+            transition: border-color 0.3s ease;
+        }
+        .form-input:focus {
+            outline: none;
+            border-bottom-color: theme('colors.primary');
+            box-shadow: none;
+        }
+        .glow-hover:hover {
+            box-shadow: 0 0 20px rgba(75, 226, 119, 0.5);
+        }
+    </style>
+</head>
+<body class="font-body-md antialiased min-h-screen flex flex-col">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-surface/70 backdrop-blur-md border-b border-white/10 shadow-xl shadow-primary/5">
+<div class="flex justify-between items-center px-margin-mobile md:px-margin-desktop py-4 max-w-container-max mx-auto">
+<a class="font-headline-md text-headline-md font-black text-on-surface tracking-tighter" href="#">APEX COACHING</a>
+<div class="hidden md:flex space-x-8 items-center">
+<a class="text-on-surface/80 hover:text-primary transition-colors hover:bg-white/5 transition-all duration-300 px-3 py-2 rounded-DEFAULT active:scale-95 transition-transform font-body-md text-body-md uppercase tracking-wider" href="#">Home</a>
+<a class="text-on-surface/80 hover:text-primary transition-colors hover:bg-white/5 transition-all duration-300 px-3 py-2 rounded-DEFAULT active:scale-95 transition-transform font-body-md text-body-md uppercase tracking-wider" href="#">About</a>
+<a class="text-on-surface/80 hover:text-primary transition-colors hover:bg-white/5 transition-all duration-300 px-3 py-2 rounded-DEFAULT active:scale-95 transition-transform font-body-md text-body-md uppercase tracking-wider" href="#">Services</a>
+<a class="text-on-surface/80 hover:text-primary transition-colors hover:bg-white/5 transition-all duration-300 px-3 py-2 rounded-DEFAULT active:scale-95 transition-transform font-body-md text-body-md uppercase tracking-wider" href="#">Programs</a>
+<a class="text-on-surface/80 hover:text-primary transition-colors hover:bg-white/5 transition-all duration-300 px-3 py-2 rounded-DEFAULT active:scale-95 transition-transform font-body-md text-body-md uppercase tracking-wider" href="#">Blog</a>
+</div>
+<button class="hidden md:block bg-primary text-on-primary-fixed font-label-caps text-label-caps px-6 py-3 uppercase tracking-wider rounded-DEFAULT glow-hover transition-all duration-300 active:scale-95">Book Now</button>
+<button class="md:hidden text-on-surface p-2">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">menu</span>
+</button>
+</div>
+</nav>
+<!-- Main Content -->
+<main class="flex-grow pt-32 pb-24 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto w-full">
+<div class="mb-16 md:mb-24 text-center md:text-left">
+<h1 class="font-display-xl text-headline-lg-mobile md:text-display-xl text-on-surface uppercase mb-4">Contact <span class="text-primary">Apex</span></h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">Ready to elevate your performance? Reach out to our elite coaching staff to discuss programs, facilities, or schedule a consultation.</p>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-gutter">
+<!-- Left Column: Form -->
+<div class="lg:col-span-7 glass-panel p-6 md:p-10 rounded-lg">
+<h2 class="font-headline-md text-headline-md text-on-surface mb-8">Send a Message</h2>
+<form class="space-y-6">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div>
+<label class="block font-label-caps text-label-caps text-primary mb-2 uppercase" for="name">Full Name</label>
+<input class="form-input w-full px-0 py-2 font-body-md text-body-md placeholder:text-on-surface-variant/50" id="name" placeholder="JANE DOE" required="" type="text"/>
+</div>
+<div>
+<label class="block font-label-caps text-label-caps text-primary mb-2 uppercase" for="email">Email Address</label>
+<input class="form-input w-full px-0 py-2 font-body-md text-body-md placeholder:text-on-surface-variant/50" id="email" placeholder="JANE@EXAMPLE.COM" required="" type="email"/>
+</div>
+</div>
+<div>
+<label class="block font-label-caps text-label-caps text-primary mb-2 uppercase" for="subject">Subject</label>
+<select class="form-input w-full px-0 py-2 font-body-md text-body-md text-on-surface-variant/50 appearance-none bg-transparent" id="subject">
+<option class="bg-surface-container-high text-on-surface" value="programs">Training Programs</option>
+<option class="bg-surface-container-high text-on-surface" value="consultation">Consultation</option>
+<option class="bg-surface-container-high text-on-surface" value="facilities">Facility Inquiry</option>
+<option class="bg-surface-container-high text-on-surface" value="other">Other</option>
+</select>
+</div>
+<div>
+<label class="block font-label-caps text-label-caps text-primary mb-2 uppercase" for="message">Message</label>
+<textarea class="form-input w-full px-0 py-2 font-body-md text-body-md placeholder:text-on-surface-variant/50 resize-none" id="message" placeholder="HOW CAN WE HELP YOU CRUSH YOUR GOALS?" required="" rows="5"></textarea>
+</div>
+<button class="w-full md:w-auto bg-primary text-on-primary-fixed font-label-caps text-label-caps px-8 py-4 uppercase tracking-wider rounded-DEFAULT glow-hover transition-all duration-300 mt-4" type="submit">
+                        Send Transmission
+                    </button>
+</form>
+</div>
+<!-- Right Column: Info & Map -->
+<div class="lg:col-span-5 space-y-8">
+<!-- Direct Info -->
+<div class="glass-panel p-6 md:p-8 rounded-lg flex flex-col gap-6">
+<div class="flex items-start gap-4">
+<span class="material-symbols-outlined text-primary text-3xl" style="font-variation-settings: 'FILL' 1;">location_on</span>
+<div>
+<h3 class="font-label-caps text-label-caps text-on-surface-variant mb-1">Headquarters</h3>
+<p class="font-body-md text-body-md text-on-surface">123 Iron Forge Blvd<br/>District 7, NY 10001</p>
+</div>
+</div>
+<div class="flex items-start gap-4">
+<span class="material-symbols-outlined text-primary text-3xl" style="font-variation-settings: 'FILL' 1;">call</span>
+<div>
+<h3 class="font-label-caps text-label-caps text-on-surface-variant mb-1">Direct Line</h3>
+<p class="font-body-md text-body-md text-on-surface">+1 (555) 867-5309</p>
+</div>
+</div>
+<div class="flex items-start gap-4">
+<span class="material-symbols-outlined text-primary text-3xl" style="font-variation-settings: 'FILL' 1;">mail</span>
+<div>
+<h3 class="font-label-caps text-label-caps text-on-surface-variant mb-1">Comms</h3>
+<p class="font-body-md text-body-md text-on-surface">elite@apexcoaching.com</p>
+</div>
+</div>
+</div>
+<!-- Map Placeholder -->
+<div class="glass-panel rounded-lg overflow-hidden h-64 relative" data-location="New York City" style="">
+<div class="bg-cover bg-center w-full h-full opacity-60 mix-blend-luminosity hover:mix-blend-normal transition-all duration-500" data-alt="A stylized, dark-mode digital map of New York City, featuring glowing neon green accent lines marking major arteries and glowing nodes indicating key locations. The aesthetic is high-tech, sleek, and tactical, matching a premium fitness brand's dark UI style. The contrast is sharp with deep charcoal backgrounds." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAO3vV3ddsmLC6xOCkWc6-lRx8EsihAe9BNZg01nctECcje-l3M8xtOd-UW3FqfVh6qQrrHrowJg_WJVXTRudhI9I-6MLsWX4zdc4biHOYzQjdmxcyyOxtHsqgvLN6hM3XyOSYN_aHz5mJ_3wiUvGMbz-FSlfxFbVlpm-UazzyT44EMXzxhFn5FmLoqfzCtd_0njy0CgUEM2wy37obj6WPtQPFbVB1EXOHxsq67ogKjljiHEwqxMAu13Q')"></div>
+<div class="absolute inset-0 border border-white/10 pointer-events-none"></div>
+</div>
+<!-- Hours & Social -->
+<div class="glass-panel p-6 md:p-8 rounded-lg flex flex-col sm:flex-row justify-between gap-6">
+<div>
+<h3 class="font-label-caps text-label-caps text-primary mb-2">Training Hours</h3>
+<ul class="font-body-md text-body-md text-on-surface space-y-1">
+<li>Mon-Fri: 05:00 - 22:00</li>
+<li>Sat: 06:00 - 20:00</li>
+<li>Sun: 08:00 - 16:00</li>
+</ul>
+</div>
+<div>
+<h3 class="font-label-caps text-label-caps text-primary mb-2">Network</h3>
+<div class="flex gap-4">
+<!-- Using material symbols as placeholders for social icons to avoid external dependencies per rules -->
+<a class="text-on-surface hover:text-primary transition-colors" href="#"><span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">public</span></a>
+<a class="text-on-surface hover:text-primary transition-colors" href="#"><span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">photo_camera</span></a>
+<a class="text-on-surface hover:text-primary transition-colors" href="#"><span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">play_circle</span></a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="w-full relative bottom-0 bg-surface-container-lowest border-t border-white/5">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-base px-margin-mobile md:px-margin-desktop py-12 max-w-container-max mx-auto">
+<div class="col-span-1 md:col-span-2">
+<span class="font-headline-md text-headline-md text-on-surface block mb-4">APEX COACHING</span>
+<p class="font-body-sm text-body-md text-on-surface-variant">© 2024 APEX ELITE PERFORMANCE. ALL RIGHTS RESERVED.</p>
+</div>
+<div class="col-span-1 md:col-span-2 flex flex-wrap gap-x-8 gap-y-4 md:justify-end items-center">
+<a class="font-body-sm text-body-md text-on-surface-variant hover:text-primary-fixed transition-colors cursor-pointer" href="#">Privacy Policy</a>
+<a class="font-body-sm text-body-md text-on-surface-variant hover:text-primary-fixed transition-colors cursor-pointer" href="#">Terms of Service</a>
+<a class="font-body-sm text-body-md text-on-surface-variant hover:text-primary-fixed transition-colors cursor-pointer" href="#">FAQ</a>
+<a class="font-body-sm text-body-md text-on-surface-variant hover:text-primary-fixed transition-colors cursor-pointer" href="#">Careers</a>
+</div>
+</div>
+</footer>
+</body></html>

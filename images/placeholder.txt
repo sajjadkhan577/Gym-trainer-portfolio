@@ -1,0 +1,18 @@
+# Image Placeholders
+# To create proper social media images:
+# 
+# Open Graph Image (og-image.jpg):
+# - Dimensions: 1200x630 pixels
+# - Format: JPG
+# - Content: Apex Elite Performance branding
+# - Style: Dark theme with #4be277 accent color
+# - Text: Company name and tagline
+# 
+# Twitter Image (twitter-image.jpg):
+# - Dimensions: 1200x675 pixels
+# - Format: JPG
+# - Content: Apex Elite Performance branding
+# - Style: Dark theme with #4be277 accent color
+# - Text: Company name and tagline
+# 
+# Tools: Canva, Adobe Photoshop, or free online tools

@@ -1,0 +1,16 @@
+User-agent: *
+Allow: /
+
+# Disallow sensitive directories
+Disallow: /config/
+Disallow: /database/
+Disallow: /includes/
+Disallow: /api/
+Disallow: /*.sql
+Disallow: /*.log
+
+# Sitemap
+Sitemap: http://localhost/Gym-trainer-portfolio/sitemap.php
+
+# Crawl-delay for polite crawling
+Crawl-delay: 1

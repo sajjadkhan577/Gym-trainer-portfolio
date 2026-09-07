@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Book a Session - Apex Coaching</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&amp;family=Inter:wght@400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-bright": "#383940",
+                      "on-surface": "#e2e1eb",
+                      "primary-fixed-dim": "#4ae176",
+                      "surface": "#12131a",
+                      "on-background": "#e2e1eb",
+                      "tertiary-container": "#acacac",
+                      "primary": "#4be277",
+                      "tertiary": "#c7c7c7",
+                      "error-container": "#93000a",
+                      "surface-container-low": "#1a1b22",
+                      "on-secondary": "#313030",
+                      "on-tertiary": "#303030",
+                      "surface-dim": "#12131a",
+                      "background": "#12131a",
+                      "secondary-fixed": "#e5e2e1",
+                      "surface-container-lowest": "#0c0e14",
+                      "inverse-on-surface": "#2f3037",
+                      "on-primary-fixed": "#002109",
+                      "on-error": "#690005",
+                      "on-tertiary-container": "#404040",
+                      "tertiary-fixed": "#e2e2e2",
+                      "secondary": "#c8c6c5",
+                      "on-secondary-fixed-variant": "#474646",
+                      "secondary-fixed-dim": "#c8c6c5",
+                      "secondary-container": "#4a4949",
+                      "surface-container-high": "#282a31",
+                      "surface-variant": "#33343c",
+                      "on-primary-container": "#004b1e",
+                      "inverse-surface": "#e2e1eb",
+                      "surface-container-highest": "#33343c",
+                      "on-secondary-container": "#bab8b7",
+                      "on-tertiary-fixed-variant": "#474747",
+                      "surface-tint": "#4ae176",
+                      "surface-container": "#1e1f26",
+                      "tertiary-fixed-dim": "#c6c6c6",
+                      "primary-fixed": "#6bff8f",
+                      "error": "#ffb4ab",
+                      "on-tertiary-fixed": "#1b1b1b",
+                      "outline": "#869585",
+                      "on-primary-fixed-variant": "#005321",
+                      "inverse-primary": "#006e2f",
+                      "on-primary": "#003915",
+                      "outline-variant": "#3d4a3d",
+                      "on-surface-variant": "#bccbb9",
+                      "on-secondary-fixed": "#1c1b1b",
+                      "on-error-container": "#ffdad6",
+                      "primary-container": "#22c55e"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "container-max": "1280px",
+                      "gutter": "24px",
+                      "margin-mobile": "20px",
+                      "base": "8px",
+                      "margin-desktop": "64px"
+              },
+              "fontFamily": {
+                      "body-md": [
+                              "Inter"
+                      ],
+                      "label-caps": [
+                              "Montserrat"
+                      ],
+                      "display-xl": [
+                              "Montserrat"
+                      ],
+                      "headline-lg": [
+                              "Montserrat"
+                      ],
+                      "headline-md": [
+                              "Montserrat"
+                      ],
+                      "headline-lg-mobile": [
+                              "Montserrat"
+                      ],
+                      "body-lg": [
+                              "Inter"
+                      ]
+              },
+              "fontSize": {
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "1.5",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "label-caps": [
+                              "12px",
+                              {
+                                      "lineHeight": "1",
+                                      "letterSpacing": "0.1em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "display-xl": [
+                              "72px",
+                              {
+                                      "lineHeight": "1.1",
+                                      "letterSpacing": "-0.04em",
+                                      "fontWeight": "900"
+                              }
+                      ],
+                      "headline-lg": [
+                              "48px",
+                              {
+                                      "lineHeight": "1.2",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "800"
+                              }
+                      ],
+                      "headline-md": [
+                              "32px",
+                              {
+                                      "lineHeight": "1.3",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "headline-lg-mobile": [
+                              "32px",
+                              {
+                                      "lineHeight": "1.2",
+                                      "fontWeight": "800"
+                              }
+                      ],
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "1.6",
+                                      "fontWeight": "400"
+                              }
+                      ]
+              }
+            },
+          },
+        }
+      </script>
+<style>
+        .glass-panel {
+            background: rgba(18, 19, 26, 0.7);
+            backdrop-filter: blur(30px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .neon-glow:hover {
+            box-shadow: 0 0 20px rgba(34, 197, 94, 0.4);
+        }
+        .input-glass {
+            background: rgba(30, 31, 38, 0.5);
+            border: none;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            color: #e2e1eb;
+            transition: all 0.3s ease;
+        }
+        .input-glass:focus {
+            outline: none;
+            border-bottom-color: #22c55e;
+            box-shadow: 0 1px 0 0 #22c55e;
+            background: rgba(30, 31, 38, 0.8);
+        }
+        
+        /* Hide scrollbar for a cleaner look but keep functionality */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #12131a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #33343c;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #4a4949;
+        }
+      </style>
+</head>
+<body class="bg-background text-on-background antialiased min-h-screen flex flex-col selection:bg-primary-container selection:text-black">
+<!-- TopNavBar (Excluded as per Semantic Shell Mandate for Transactional pages) -->
+<!-- This is a transactional "Book a Session" page, acting as a focused journey/dead end relative to global nav -->
+<main class="flex-grow flex items-center justify-center py-20 px-margin-mobile md:px-margin-desktop relative">
+<!-- Abstract Background Elements -->
+<div class="absolute inset-0 overflow-hidden pointer-events-none z-0">
+<div class="absolute top-[-10%] right-[-5%] w-[40vw] h-[40vw] rounded-full bg-primary-container/10 blur-[120px]"></div>
+<div class="absolute bottom-[-20%] left-[-10%] w-[50vw] h-[50vw] rounded-full bg-surface-bright/20 blur-[150px]"></div>
+</div>
+<div class="w-full max-w-4xl grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 relative z-10">
+<!-- Left Column: Context & Branding -->
+<div class="md:col-span-5 flex flex-col justify-center">
+<a class="font-headline-md text-headline-md font-black text-on-surface tracking-tighter mb-8 inline-block hover:text-primary transition-colors" href="#">
+                    APEX COACHING
+                </a>
+<h1 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface mb-6 leading-tight">
+                    COMMIT TO <br/><span class="text-primary-container">PROGRESS</span>.
+                </h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant mb-12">
+                    Secure your session. Our elite trainers are ready to push your limits. Fill out the details to configure your optimal training protocol.
+                </p>
+<div class="hidden md:flex flex-col gap-6">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary-container text-2xl">location_on</span>
+<div>
+<p class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider">The Facility</p>
+<p class="font-body-md text-body-md text-on-surface">124 Elite Way, Iron District</p>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary-container text-2xl">mail</span>
+<div>
+<p class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider">Contact</p>
+<p class="font-body-md text-body-md text-on-surface">train@apexcoaching.com</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Booking Form -->
+<div class="md:col-span-7 glass-panel rounded-xl p-6 md:p-10 shadow-2xl">
+<form action="#" class="space-y-8" method="POST">
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+<!-- Name -->
+<div class="flex flex-col">
+<label class="font-label-caps text-label-caps text-on-surface-variant mb-2" for="name">Full Name</label>
+<input class="input-glass font-body-md text-body-md w-full px-4 py-3 rounded-t" id="name" name="name" placeholder="John Doe" required="" type="text"/>
+</div>
+<!-- Phone -->
+<div class="flex flex-col">
+<label class="font-label-caps text-label-caps text-on-surface-variant mb-2" for="phone">Phone Number</label>
+<input class="input-glass font-body-md text-body-md w-full px-4 py-3 rounded-t" id="phone" name="phone" placeholder="+1 (555) 000-0000" type="tel"/>
+</div>
+</div>
+<!-- Email -->
+<div class="flex flex-col">
+<label class="font-label-caps text-label-caps text-on-surface-variant mb-2" for="email">Email Address</label>
+<input class="input-glass font-body-md text-body-md w-full px-4 py-3 rounded-t" id="email" name="email" placeholder="john@example.com" required="" type="email"/>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+<!-- Date Picker (UI Only) -->
+<div class="flex flex-col">
+<label class="font-label-caps text-label-caps text-on-surface-variant mb-2" for="date">Preferred Date</label>
+<div class="relative">
+<input class="input-glass font-body-md text-body-md w-full px-4 py-3 rounded-t" id="date" name="date" style="color-scheme: dark;" type="date"/>
+<span class="material-symbols-outlined absolute right-3 top-3.5 text-on-surface-variant pointer-events-none">calendar_month</span>
+</div>
+</div>
+<!-- Time Picker (UI Only) -->
+<div class="flex flex-col">
+<label class="font-label-caps text-label-caps text-on-surface-variant mb-2" for="time">Preferred Time</label>
+<div class="relative">
+<input class="input-glass font-body-md text-body-md w-full px-4 py-3 rounded-t" id="time" name="time" style="color-scheme: dark;" type="time"/>
+<span class="material-symbols-outlined absolute right-3 top-3.5 text-on-surface-variant pointer-events-none">schedule</span>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+<!-- Fitness Goal Dropdown -->
+<div class="flex flex-col">
+<label class="font-label-caps text-label-caps text-on-surface-variant mb-2" for="goal">Primary Goal</label>
+<select class="input-glass font-body-md text-body-md w-full px-4 py-3 rounded-t appearance-none" id="goal" name="goal">
+<option disabled="" selected="" value="">Select Goal</option>
+<option class="bg-surface text-on-surface" value="hypertrophy">Hypertrophy / Muscle Gain</option>
+<option class="bg-surface text-on-surface" value="strength">Pure Strength</option>
+<option class="bg-surface text-on-surface" value="endurance">Athletic Endurance</option>
+<option class="bg-surface text-on-surface" value="fat_loss">Fat Loss / Conditioning</option>
+</select>
+</div>
+<!-- Training Type Dropdown -->
+<div class="flex flex-col">
+<label class="font-label-caps text-label-caps text-on-surface-variant mb-2" for="type">Training Type</label>
+<select class="input-glass font-body-md text-body-md w-full px-4 py-3 rounded-t appearance-none" id="type" name="type">
+<option disabled="" selected="" value="">Select Type</option>
+<option class="bg-surface text-on-surface" value="1on1">1-on-1 Personal Training</option>
+<option class="bg-surface text-on-surface" value="small_group">Small Group (2-4)</option>
+<option class="bg-surface text-on-surface" value="assessment">Initial Assessment</option>
+</select>
+</div>
+</div>
+<!-- Message -->
+<div class="flex flex-col">
+<label class="font-label-caps text-label-caps text-on-surface-variant mb-2" for="message">Additional Details (Injuries, Focus Areas)</label>
+<textarea class="input-glass font-body-md text-body-md w-full px-4 py-3 rounded-t resize-none" id="message" name="message" placeholder="Let us know anything specific..." rows="3"></textarea>
+</div>
+<!-- Submit Button -->
+<div class="pt-4 flex items-center justify-between">
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:text-white transition-colors flex items-center gap-2" href="javascript:history.back()">
+<span class="material-symbols-outlined text-sm">arrow_back</span>
+                            CANCEL
+                        </a>
+<button class="bg-primary-container text-black font-label-caps text-label-caps px-8 py-4 rounded font-bold uppercase tracking-widest transition-all neon-glow flex items-center gap-2 group" type="submit">
+                            CONFIRM BOOKING
+                            <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</button>
+</div>
+</form>
+</div>
+</div>
+</main>
+<!-- Footer (Suppressed for focused transactional flow, keeping user on task) -->
+</body></html>

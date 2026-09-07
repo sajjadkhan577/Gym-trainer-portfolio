@@ -1,0 +1,6 @@
+# Allow serving image files, deny PHP execution for security
+Options -ExecCGI
+AddHandler cgi-script .php .pl .py .jsp .asp .sh .cgi
+<FilesMatch "\.(php|pl|py|jsp|asp|sh|cgi)$">
+    deny from all
+</FilesMatch>

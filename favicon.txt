@@ -1,0 +1,8 @@
+# Favicon Placeholder
+# To create actual favicon files:
+# 1. Use favicon.svg as the source
+# 2. Convert to favicon.ico (32x32 and 16x16)
+# 3. Create PNG versions for different sizes
+# 4. Tools: https://realfavicongenerator.net/
+# 
+# Current setup uses favicon.svg which browsers will use

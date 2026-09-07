@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Gallery - APEX COACHING</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&amp;family=Inter:wght@400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-bright": "#383940",
+                      "on-surface": "#e2e1eb",
+                      "primary-fixed-dim": "#4ae176",
+                      "surface": "#12131a",
+                      "on-background": "#e2e1eb",
+                      "tertiary-container": "#acacac",
+                      "primary": "#4be277",
+                      "tertiary": "#c7c7c7",
+                      "error-container": "#93000a",
+                      "surface-container-low": "#1a1b22",
+                      "on-secondary": "#313030",
+                      "on-tertiary": "#303030",
+                      "surface-dim": "#12131a",
+                      "background": "#12131a",
+                      "secondary-fixed": "#e5e2e1",
+                      "surface-container-lowest": "#0c0e14",
+                      "inverse-on-surface": "#2f3037",
+                      "on-primary-fixed": "#002109",
+                      "on-error": "#690005",
+                      "on-tertiary-container": "#404040",
+                      "tertiary-fixed": "#e2e2e2",
+                      "secondary": "#c8c6c5",
+                      "on-secondary-fixed-variant": "#474646",
+                      "secondary-fixed-dim": "#c8c6c5",
+                      "secondary-container": "#4a4949",
+                      "surface-container-high": "#282a31",
+                      "surface-variant": "#33343c",
+                      "on-primary-container": "#004b1e",
+                      "inverse-surface": "#e2e1eb",
+                      "surface-container-highest": "#33343c",
+                      "on-secondary-container": "#bab8b7",
+                      "on-tertiary-fixed-variant": "#474747",
+                      "surface-tint": "#4ae176",
+                      "surface-container": "#1e1f26",
+                      "tertiary-fixed-dim": "#c6c6c6",
+                      "primary-fixed": "#6bff8f",
+                      "error": "#ffb4ab",
+                      "on-tertiary-fixed": "#1b1b1b",
+                      "outline": "#869585",
+                      "on-primary-fixed-variant": "#005321",
+                      "inverse-primary": "#006e2f",
+                      "on-primary": "#003915",
+                      "outline-variant": "#3d4a3d",
+                      "on-surface-variant": "#bccbb9",
+                      "on-secondary-fixed": "#1c1b1b",
+                      "on-error-container": "#ffdad6",
+                      "primary-container": "#22c55e"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "container-max": "1280px",
+                      "gutter": "24px",
+                      "margin-mobile": "20px",
+                      "base": "8px",
+                      "margin-desktop": "64px"
+              },
+              "fontFamily": {
+                      "body-md": [
+                              "Inter"
+                      ],
+                      "label-caps": [
+                              "Montserrat"
+                      ],
+                      "display-xl": [
+                              "Montserrat"
+                      ],
+                      "headline-lg": [
+                              "Montserrat"
+                      ],
+                      "headline-md": [
+                              "Montserrat"
+                      ],
+                      "headline-lg-mobile": [
+                              "Montserrat"
+                      ],
+                      "body-lg": [
+                              "Inter"
+                      ]
+              },
+              "fontSize": {
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "1.5",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "label-caps": [
+                              "12px",
+                              {
+                                      "lineHeight": "1",
+                                      "letterSpacing": "0.1em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "display-xl": [
+                              "72px",
+                              {
+                                      "lineHeight": "1.1",
+                                      "letterSpacing": "-0.04em",
+                                      "fontWeight": "900"
+                              }
+                      ],
+                      "headline-lg": [
+                              "48px",
+                              {
+                                      "lineHeight": "1.2",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "800"
+                              }
+                      ],
+                      "headline-md": [
+                              "32px",
+                              {
+                                      "lineHeight": "1.3",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "headline-lg-mobile": [
+                              "32px",
+                              {
+                                      "lineHeight": "1.2",
+                                      "fontWeight": "800"
+                              }
+                      ],
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "1.6",
+                                      "fontWeight": "400"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+      </script>
+<style>
+        body {
+            background-color: theme('colors.background');
+            color: theme('colors.on-background');
+        }
+        
+        /* Glassmorphism utility classes */
+        .glass-panel {
+            background: rgba(18, 19, 26, 0.7);
+            backdrop-filter: blur(30px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .masonry-grid {
+            column-count: 1;
+            column-gap: 24px;
+        }
+        @media (min-width: 768px) {
+            .masonry-grid {
+                column-count: 2;
+            }
+        }
+        @media (min-width: 1024px) {
+            .masonry-grid {
+                column-count: 3;
+            }
+        }
+        .masonry-item {
+            break-inside: avoid;
+            margin-bottom: 24px;
+        }
+        
+        .gallery-overlay {
+            background: linear-gradient(to top, rgba(12, 14, 20, 0.9) 0%, rgba(12, 14, 20, 0) 100%);
+        }
+    </style>
+</head>
+<body class="antialiased min-h-screen flex flex-col">
+<!-- TopNavBar (Shared Component) -->
+<!-- Note: "Gallery" isn't explicitly in the nav array, but it's part of the global browsing experience. We'll leave all inactive, or if it implies 'About' or 'Programs', we could guess. We'll keep them inactive as it's a dedicated page not in primary nav. -->
+<header class="fixed top-0 w-full z-50 bg-surface/70 backdrop-blur-md shadow-xl shadow-primary/5 border-b border-white/10">
+<div class="flex justify-between items-center px-margin-mobile md:px-margin-desktop py-4 max-w-container-max mx-auto">
+<div class="font-headline-md text-headline-md font-black text-on-surface tracking-tighter">
+                APEX COACHING
+            </div>
+<nav class="hidden md:flex space-x-8">
+<a class="text-on-surface/80 hover:text-primary transition-colors hover:bg-white/5 transition-all duration-300 font-body-md text-body-md uppercase tracking-wider px-4 py-2 rounded-lg" href="#">Home</a>
+<a class="text-on-surface/80 hover:text-primary transition-colors hover:bg-white/5 transition-all duration-300 font-body-md text-body-md uppercase tracking-wider px-4 py-2 rounded-lg" href="#">About</a>
+<a class="text-on-surface/80 hover:text-primary transition-colors hover:bg-white/5 transition-all duration-300 font-body-md text-body-md uppercase tracking-wider px-4 py-2 rounded-lg" href="#">Services</a>
+<a class="text-on-surface/80 hover:text-primary transition-colors hover:bg-white/5 transition-all duration-300 font-body-md text-body-md uppercase tracking-wider px-4 py-2 rounded-lg" href="#">Programs</a>
+<a class="text-on-surface/80 hover:text-primary transition-colors hover:bg-white/5 transition-all duration-300 font-body-md text-body-md uppercase tracking-wider px-4 py-2 rounded-lg" href="#">Blog</a>
+</nav>
+<button class="bg-primary-container text-on-primary-fixed-variant font-label-caps text-label-caps uppercase px-6 py-3 rounded hover:shadow-[0_0_20px_rgba(34,197,94,0.5)] transition-all duration-300 hidden md:block">
+                Book Now
+            </button>
+<button class="md:hidden text-on-surface">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">menu</span>
+</button>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="flex-grow pt-[104px] pb-24 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto w-full">
+<!-- Header Section -->
+<section class="mb-16 pt-12 md:pt-24 flex flex-col md:flex-row justify-between items-end gap-8 border-b border-white/10 pb-8">
+<div>
+<h1 class="font-display-xl text-headline-lg-mobile md:text-display-xl text-on-surface mb-4">THE VAULT</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">
+                    Visual evidence of high-performance execution. Filter through raw training moments, facility overviews, and the apex lifestyle.
+                </p>
+</div>
+<!-- Category Filters (Glass Style) -->
+<div class="flex flex-wrap gap-4">
+<button class="px-6 py-2 rounded-full border border-primary text-primary bg-primary/10 font-label-caps text-label-caps transition-all">ALL</button>
+<button class="px-6 py-2 rounded-full border border-white/20 text-on-surface bg-surface-container/50 hover:border-primary hover:text-primary transition-all font-label-caps text-label-caps">WORKOUT</button>
+<button class="px-6 py-2 rounded-full border border-white/20 text-on-surface bg-surface-container/50 hover:border-primary hover:text-primary transition-all font-label-caps text-label-caps">GYM</button>
+<button class="px-6 py-2 rounded-full border border-white/20 text-on-surface bg-surface-container/50 hover:border-primary hover:text-primary transition-all font-label-caps text-label-caps">LIFESTYLE</button>
+</div>
+</section>
+<!-- Masonry Gallery -->
+<div class="masonry-grid">
+<!-- Item 1 (Tall) -->
+<div class="masonry-item relative group rounded-xl overflow-hidden glass-panel cursor-pointer">
+<img class="w-full h-auto object-cover aspect-[3/4] transition-transform duration-700 group-hover:scale-105" data-alt="A low-angle, high-contrast photograph of an elite athlete performing a heavy deadlift in a dimly lit, industrial-style gym. Dramatic spotlights create deep shadows and bright white highlights on the weight plates and the athlete's tense muscles. The dark background emphasizes the intense focus and power of the moment, accented by subtle neon green light flares reflecting off the equipment. The overall aesthetic is dark, raw, and high-performance." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDIoK7FXO2SdI-kb9FFOiEE_rRBhQqB91y3XmFFJvhyugZgIJL4jYIcCebvASDIxRR-f_1eq6Jp3Emxzozz8e0-IBY2XHRHiLExU3qjmEepBMIPIp5iBG3Ve3b3v01S_S4b0ewzG3am6IMDfxo4EwkwsLDbKzadT62_m51T0o1LTG3shWCH9s3EtrzqIRHfoHg81wibvyJL0n3BamRc28cLkCJblX7qEMDeyv4BBB-eeVk5mQSzA68FuA"/>
+<div class="absolute inset-0 gallery-overlay opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+<span class="inline-block px-3 py-1 bg-primary/20 border border-primary text-primary font-label-caps text-[10px] rounded mb-2 w-fit">WORKOUT</span>
+<h3 class="font-headline-md text-headline-md text-on-surface">RAW POWER</h3>
+</div>
+</div>
+<!-- Item 2 (Square) -->
+<div class="masonry-item relative group rounded-xl overflow-hidden glass-panel cursor-pointer">
+<img class="w-full h-auto object-cover aspect-square transition-transform duration-700 group-hover:scale-105" data-alt="A wide, symmetrical shot of a luxury underground training facility. The space features sleek matte black equipment arranged neatly on specialized turf. Strategic overhead lighting casts geometric shadows across the floor. The aesthetic is clean, sophisticated, and exclusive, utilizing a dark mode color palette of charcoal, deep blacks, and striking neon green LED strip accents running along the baseboards." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAgmPNyw1yP9JywI_c-hpWse7A1RjtHbc6_Gb9qBWkJmTRDIzhzPY6TvMTXOEQoraYuDS6yE7AnHVXn9Gu9b2iZOWEfZV_RT5a8GVUequCg9E2y1SiE5MpJO5tbnNekcHFRk_5ykBTTjEN7kiJ1GetBbF3ELHbygP7j3ndGMCLe6IAtnu-o82tmiqq9iipkfhpTt16I02Zo9GM7r80sGTmBL_mwSSUqLSMZZmrftvEuFRfJ7kjS0JBoOA"/>
+<div class="absolute inset-0 gallery-overlay opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+<span class="inline-block px-3 py-1 bg-surface-bright/50 border border-white/30 text-on-surface font-label-caps text-[10px] rounded mb-2 w-fit">GYM</span>
+<h3 class="font-headline-md text-headline-md text-on-surface">THE FACILITY</h3>
+</div>
+</div>
+<!-- Item 3 (Video/Wide) -->
+<div class="masonry-item relative group rounded-xl overflow-hidden glass-panel cursor-pointer">
+<img class="w-full h-auto object-cover aspect-video transition-transform duration-700 group-hover:scale-105" data-alt="A dynamic action shot capturing a sprinter mid-stride on a dark indoor track. Motion blur emphasizes speed while the athlete remains in sharp focus. The lighting is moody and cinematic, with cool blue undertones contrasting against neon green visual markers on the track. The high-performance lifestyle aesthetic is apparent in the premium athletic wear and the sleek, technical environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDFitCqs_du8jexcKjOIBu0k6IzN39u8vyjRvapgaONQ73dfreZI_4EmPASIRUDVrO72vNF_Xjd_qMONNXvsjewcmie6hPyKqLfB9UjJnMr_jjsMT9hcTZjoQMnKgWVFXYHNygpMwWhJLPRdf5dawNlV5HaGFTDLiu9oRxn4KxrXJB4R8zIkHv4bi4sbnzL6FCJYCvu_Ci2En4vHttxEtg5qjsukFvJAvWyaHlYNBaX9nGZgp-DNo482g"/>
+<div class="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors duration-300 flex items-center justify-center">
+<div class="w-16 h-16 rounded-full glass-panel flex items-center justify-center text-primary group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-4xl" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+</div>
+</div>
+<div class="absolute inset-0 gallery-overlay opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6 pointer-events-none">
+<span class="inline-block px-3 py-1 bg-primary/20 border border-primary text-primary font-label-caps text-[10px] rounded mb-2 w-fit">LIFESTYLE</span>
+<h3 class="font-headline-md text-headline-md text-on-surface">SPRINT MECHANICS</h3>
+</div>
+</div>
+<!-- Item 4 (Square) -->
+<div class="masonry-item relative group rounded-xl overflow-hidden glass-panel cursor-pointer">
+<img class="w-full h-auto object-cover aspect-square transition-transform duration-700 group-hover:scale-105" data-alt="Close-up detail shot of chalked hands gripping a heavily knurled barbell. The background is completely out of focus, rendered in deep charcoal tones. High-contrast lighting highlights the texture of the chalk and the steel bar. Subtle green ambient light catches the edge of the weight plate, reinforcing the brand's dark glassmorphism and elite fitness identity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBpHjT9cCJ2fvKLUtbiC01OjZjOkI3GB0fuCLtnzqjGcSSxYVYOzwmNa370uwF2wykSz_FdJ5ObINMJdOsCES7NSwylotNKbykb6716Vcf-q02DAPb2IBHVIjwYxNB1Gp_PAumyitGdx6syD7UhnopyA09zenY1Qs0CJyvWMCauZzKQoreLe04oN2jQWzX8XupbW29OTaRAg2w1FXELVhyXXlW8wK-MlE5hEINJGZ3CQVNquKe_r_2iiQ"/>
+<div class="absolute inset-0 gallery-overlay opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+<span class="inline-block px-3 py-1 bg-primary/20 border border-primary text-primary font-label-caps text-[10px] rounded mb-2 w-fit">WORKOUT</span>
+<h3 class="font-headline-md text-headline-md text-on-surface">THE GRIP</h3>
+</div>
+</div>
+<!-- Item 5 (Tall) -->
+<div class="masonry-item relative group rounded-xl overflow-hidden glass-panel cursor-pointer">
+<img class="w-full h-auto object-cover aspect-[3/4] transition-transform duration-700 group-hover:scale-105" data-alt="A portrait of a focused fitness coach in a dark, atmospheric setting. They are wearing sleek, minimalist black athletic apparel. The background features blurred, glowing neon green elements suggesting high-tech training equipment. The lighting is dramatic, casting strong shadows that highlight the coach's intense expression, aligning with an elite, underground training aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBwo1Z8Jsj7SWp4Lm64wE2Ue4efLtsJCa9Ia-4jBcrw8NKh91xZ7VAZgzO3Yrh6xMpq-UQMEf4V6EaCCj4n6pEeqvJNVsI5N5wgDvm2mESBv80YWPLJfhF2IxAc5WM2VIJ_lc0evvQHThBAYg34zQMgNEnIkLiUe1S_9XtaHvJtzeqyit6Fo2_fxvRzHPfyWF6w8pAQVA2-e4XIjMmhs5NJtmJasjujzZa_VuzzHc-AFO_S5BYTAVTABQ"/>
+<div class="absolute inset-0 gallery-overlay opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+<span class="inline-block px-3 py-1 bg-primary/20 border border-primary text-primary font-label-caps text-[10px] rounded mb-2 w-fit">LIFESTYLE</span>
+<h3 class="font-headline-md text-headline-md text-on-surface">COACH PROFILE</h3>
+</div>
+</div>
+<!-- Item 6 (Wide) -->
+<div class="masonry-item relative group rounded-xl overflow-hidden glass-panel cursor-pointer">
+<img class="w-full h-auto object-cover aspect-video transition-transform duration-700 group-hover:scale-105" data-alt="A panoramic view of a recovery zone within a luxury gym. Deep black slate walls are contrasted by warm, glowing white indirect light outlining a state-of-the-art cold plunge tub. The atmosphere is serene yet intense, combining raw materials with sophisticated design. The dark mode aesthetic dominates, punctuated by neon green UI elements on a nearby digital display panel." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDKv-vZATyk9DxRFj5VNwJRer9AFhTiI3pg2naqZ07_e_yzeZzYEuTtRt2Blm66tx1Cie1php8CBg2nyHrAzys6CCxw7Asn3bxevwBR2XriJ_c5GmC1LbdqW8jFyBKEZGbjCDLP0uBe3-HhmwFhEn5hf7TP5NGc1jCOGEA1m8FWONOno6Z1euNW1HDBexAKXLE6X06wfIZBfp33jSfvP2LUuEVLJ-i-WmLgA1RwtBMEqsguI1a42bET7A"/>
+<div class="absolute inset-0 gallery-overlay opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+<span class="inline-block px-3 py-1 bg-surface-bright/50 border border-white/30 text-on-surface font-label-caps text-[10px] rounded mb-2 w-fit">GYM</span>
+<h3 class="font-headline-md text-headline-md text-on-surface">RECOVERY ZONE</h3>
+</div>
+</div>
+</div>
+<!-- Load More Action -->
+<div class="mt-16 text-center">
+<button class="bg-transparent border-2 border-primary text-primary font-label-caps text-label-caps uppercase px-8 py-4 rounded hover:bg-primary hover:text-on-primary hover:shadow-[0_0_20px_rgba(34,197,94,0.3)] transition-all duration-300">
+                LOAD MORE VISUALS
+            </button>
+</div>
+</main>
+<!-- Footer (Shared Component) -->
+<footer class="w-full relative bottom-0 bg-surface-container-lowest border-t border-white/5 flat no shadows">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-base px-margin-mobile md:px-margin-desktop py-12 max-w-container-max mx-auto">
+<div class="col-span-1 md:col-span-2 mb-8 md:mb-0">
+<div class="font-headline-md text-headline-md text-on-surface mb-4">
+                    APEX ELITE PERFORMANCE
+                </div>
+<p class="font-body-sm text-body-md text-on-surface-variant max-w-sm mb-6">
+                    Pushing the boundaries of human potential through data-driven training and relentless execution.
+                </p>
+<div class="font-body-sm text-body-md text-on-surface-variant">
+                    © 2024 APEX ELITE PERFORMANCE. ALL RIGHTS RESERVED.
+                </div>
+</div>
+<div class="col-span-1">
+<h4 class="font-label-caps text-label-caps text-on-surface mb-4">LEGAL</h4>
+<ul class="space-y-3 font-body-sm text-body-md text-on-surface-variant">
+<li><a class="cursor-pointer hover:text-primary-fixed transition-colors" href="#">Privacy Policy</a></li>
+<li><a class="cursor-pointer hover:text-primary-fixed transition-colors" href="#">Terms of Service</a></li>
+</ul>
+</div>
+<div class="col-span-1">
+<h4 class="font-label-caps text-label-caps text-on-surface mb-4">CONNECT</h4>
+<ul class="space-y-3 font-body-sm text-body-md text-on-surface-variant">
+<li><a class="cursor-pointer hover:text-primary-fixed transition-colors" href="#">FAQ</a></li>
+<li><a class="cursor-pointer hover:text-primary-fixed transition-colors" href="#">Careers</a></li>
+</ul>
+</div>
+</div>
+</footer>
+</body></html>

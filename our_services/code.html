@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>APEX COACHING - Services</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&amp;family=Inter:wght@400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-bright": "#383940",
+                        "on-surface": "#e2e1eb",
+                        "primary-fixed-dim": "#4ae176",
+                        "surface": "#12131a",
+                        "on-background": "#e2e1eb",
+                        "tertiary-container": "#acacac",
+                        "primary": "#4be277",
+                        "tertiary": "#c7c7c7",
+                        "error-container": "#93000a",
+                        "surface-container-low": "#1a1b22",
+                        "on-secondary": "#313030",
+                        "on-tertiary": "#303030",
+                        "surface-dim": "#12131a",
+                        "background": "#12131a",
+                        "secondary-fixed": "#e5e2e1",
+                        "surface-container-lowest": "#0c0e14",
+                        "inverse-on-surface": "#2f3037",
+                        "on-primary-fixed": "#002109",
+                        "on-error": "#690005",
+                        "on-tertiary-container": "#404040",
+                        "tertiary-fixed": "#e2e2e2",
+                        "secondary": "#c8c6c5",
+                        "on-secondary-fixed-variant": "#474646",
+                        "secondary-fixed-dim": "#c8c6c5",
+                        "secondary-container": "#4a4949",
+                        "surface-container-high": "#282a31",
+                        "surface-variant": "#33343c",
+                        "on-primary-container": "#004b1e",
+                        "inverse-surface": "#e2e1eb",
+                        "surface-container-highest": "#33343c",
+                        "on-secondary-container": "#bab8b7",
+                        "on-tertiary-fixed-variant": "#474747",
+                        "surface-tint": "#4ae176",
+                        "surface-container": "#1e1f26",
+                        "tertiary-fixed-dim": "#c6c6c6",
+                        "primary-fixed": "#6bff8f",
+                        "error": "#ffb4ab",
+                        "on-tertiary-fixed": "#1b1b1b",
+                        "outline": "#869585",
+                        "on-primary-fixed-variant": "#005321",
+                        "inverse-primary": "#006e2f",
+                        "on-primary": "#003915",
+                        "outline-variant": "#3d4a3d",
+                        "on-surface-variant": "#bccbb9",
+                        "on-secondary-fixed": "#1c1b1b",
+                        "on-error-container": "#ffdad6",
+                        "primary-container": "#22c55e"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "container-max": "1280px",
+                        "gutter": "24px",
+                        "margin-mobile": "20px",
+                        "base": "8px",
+                        "margin-desktop": "64px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Inter"],
+                        "label-caps": ["Montserrat"],
+                        "display-xl": ["Montserrat"],
+                        "headline-lg": ["Montserrat"],
+                        "headline-md": ["Montserrat"],
+                        "headline-lg-mobile": ["Montserrat"],
+                        "body-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-md": ["16px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                        "label-caps": ["12px", { "lineHeight": "1", "letterSpacing": "0.1em", "fontWeight": "700" }],
+                        "display-xl": ["72px", { "lineHeight": "1.1", "letterSpacing": "-0.04em", "fontWeight": "900" }],
+                        "headline-lg": ["48px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "800" }],
+                        "headline-md": ["32px", { "lineHeight": "1.3", "fontWeight": "700" }],
+                        "headline-lg-mobile": ["32px", { "lineHeight": "1.2", "fontWeight": "800" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .glass-panel {
+            background: rgba(18, 19, 26, 0.7);
+            backdrop-filter: blur(30px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .glow-hover:hover {
+            box-shadow: 0 0 20px rgba(34, 197, 94, 0.5);
+            border-color: rgba(34, 197, 94, 0.8);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-md min-h-screen pt-24">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-surface/70 backdrop-blur-md border-b border-white/10 shadow-xl shadow-primary/5">
+<div class="flex justify-between items-center px-margin-desktop py-4 max-w-container-max mx-auto md:px-margin-desktop px-margin-mobile">
+<div class="font-headline-md text-headline-md font-black text-on-surface tracking-tighter">
+                APEX COACHING
+            </div>
+<!-- Desktop Nav -->
+<ul class="hidden md:flex gap-gutter items-center">
+<li><a class="font-body-md text-body-md uppercase tracking-wider text-on-surface/80 hover:text-primary transition-colors hover:bg-white/5 transition-all duration-300 px-3 py-2 rounded-lg" href="#">Home</a></li>
+<li><a class="font-body-md text-body-md uppercase tracking-wider text-on-surface/80 hover:text-primary transition-colors hover:bg-white/5 transition-all duration-300 px-3 py-2 rounded-lg" href="#">About</a></li>
+<li><a class="font-body-md text-body-md uppercase tracking-wider text-primary font-bold border-b-2 border-primary pb-1 hover:bg-white/5 transition-all duration-300 px-3 py-2 rounded-lg" href="#">Services</a></li>
+<li><a class="font-body-md text-body-md uppercase tracking-wider text-on-surface/80 hover:text-primary transition-colors hover:bg-white/5 transition-all duration-300 px-3 py-2 rounded-lg" href="#">Programs</a></li>
+<li><a class="font-body-md text-body-md uppercase tracking-wider text-on-surface/80 hover:text-primary transition-colors hover:bg-white/5 transition-all duration-300 px-3 py-2 rounded-lg" href="#">Blog</a></li>
+</ul>
+<button class="hidden md:block bg-primary-container text-on-primary-container px-6 py-3 rounded-DEFAULT font-label-caps text-label-caps uppercase hover:shadow-[0_0_20px_rgba(34,197,94,0.6)] transition-all duration-300 active:scale-95 text-black">
+                Book Now
+            </button>
+<!-- Mobile Menu Icon (Placeholder for functionality) -->
+<button class="md:hidden text-on-surface">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">menu</span>
+</button>
+</div>
+</nav>
+<main class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-16">
+<!-- Header Section -->
+<header class="mb-16 text-center md:text-left">
+<h1 class="font-display-xl text-display-xl text-on-surface mb-4">ELITE SERVICES</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">Precision-engineered programs designed to break plateaus and redefine your limits. Choose your path to performance.</p>
+</header>
+<!-- Services Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-gutter">
+<!-- Card 1: Personal Training -->
+<div class="glass-panel rounded-xl overflow-hidden flex flex-col group transition-all duration-300 hover:-translate-y-2 glow-hover">
+<div class="h-48 relative overflow-hidden">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A gritty, high-contrast black and white photo of a focused athlete lifting heavy weights in a dimly lit, underground gym environment. The lighting highlights the sweat and intense concentration. A subtle neon green flare cuts across the frame. High-end, dramatic, powerful fitness aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC_0q0mXYyvQV_ux_84KC4pHxFyX7seYVB5g1oeay-n8nfkdyGw9wgOuYXyTPpuc9uVgdxEXCUi6xxyYwx0TnzQHnaozWis1tfRofXAWGPqJ_dU55o1vpRMkjNDp6N-NSlhBE9tLv-W21Jnm3ZF2DG7C6zRcdDzfz0hGIlcaCrj-iBPbxQJ8Rr7RijTL05qZp5-8SOpPNmixgI_8NF_KIrgvknpxSHmU8AqXF2PEQykirMpdTRj3zuCLA"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface via-transparent to-transparent"></div>
+</div>
+<div class="p-6 flex-grow flex flex-col">
+<h3 class="font-headline-md text-headline-md text-on-surface mb-2">Personal Training</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-4 flex-grow">1-on-1 intensive sessions tailored to your specific biomechanics and goals. Maximum accountability.</p>
+<ul class="mb-6 space-y-2">
+<li class="flex items-center text-sm text-tertiary"><span class="material-symbols-outlined text-primary mr-2 text-[18px]">check_circle</span> Custom programming</li>
+<li class="flex items-center text-sm text-tertiary"><span class="material-symbols-outlined text-primary mr-2 text-[18px]">check_circle</span> Form correction</li>
+<li class="flex items-center text-sm text-tertiary"><span class="material-symbols-outlined text-primary mr-2 text-[18px]">check_circle</span> Weekly check-ins</li>
+</ul>
+<button class="w-full py-3 bg-surface-container-high border border-primary text-primary rounded-DEFAULT font-label-caps text-label-caps uppercase hover:bg-primary hover:text-black transition-all duration-300">Book Now</button>
+</div>
+</div>
+<!-- Card 2: Online Coaching -->
+<div class="glass-panel rounded-xl overflow-hidden flex flex-col group transition-all duration-300 hover:-translate-y-2 glow-hover">
+<div class="h-48 relative overflow-hidden">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A sleek smartphone displaying a highly detailed workout app interface, resting on a textured black gym floor next to a chalk-covered kettlebell. Cinematic top-down lighting emphasizes the device. Deep charcoal background with electric neon green accents in the app UI." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC3NVBcP2-Ts7YBaHcBWs3aQwXSEMgtxeOMLHkHIfxqRjeG1msZts9fk8EHhBBOvsH7axjr7Ky0iYm7tPXwFE1SbwgDOCcQykCxp1D9uzTyEGHxqaYv7OyQNf4ieL3bXD58LUB4BQksUJPx6TUw9uklg6_wZTKzbwLFtnKnwzhTVDhtHjaVJk6KV5bKc_c6BD28Jypl2efZ8njSoSiyj3qAfrFY-PpMFj6l-l5MeABF2qnb2ZT25pndcg"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface via-transparent to-transparent"></div>
+</div>
+<div class="p-6 flex-grow flex flex-col">
+<h3 class="font-headline-md text-headline-md text-on-surface mb-2">Online Coaching</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-4 flex-grow">Elite programming delivered directly to your device. Train anywhere, anytime with expert guidance.</p>
+<ul class="mb-6 space-y-2">
+<li class="flex items-center text-sm text-tertiary"><span class="material-symbols-outlined text-primary mr-2 text-[18px]">check_circle</span> App access</li>
+<li class="flex items-center text-sm text-tertiary"><span class="material-symbols-outlined text-primary mr-2 text-[18px]">check_circle</span> Video feedback</li>
+<li class="flex items-center text-sm text-tertiary"><span class="material-symbols-outlined text-primary mr-2 text-[18px]">check_circle</span> 24/7 support</li>
+</ul>
+<button class="w-full py-3 bg-surface-container-high border border-primary text-primary rounded-DEFAULT font-label-caps text-label-caps uppercase hover:bg-primary hover:text-black transition-all duration-300">Book Now</button>
+</div>
+</div>
+<!-- Card 3: Weight Loss -->
+<div class="glass-panel rounded-xl overflow-hidden flex flex-col group transition-all duration-300 hover:-translate-y-2 glow-hover">
+<div class="h-48 relative overflow-hidden">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="Dynamic shot of an athlete mid-stride during a grueling sprint on an assault treadmill. Motion blur creates a sense of immense speed and effort. The environment is dark and industrial, lit by stark overhead spotlights. The aesthetic is raw and energetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAQC7NYrDDSXm-dkviFJ37ZLSSuGFk__69dHIih3qVl7puKy7fImIm9pNDvIx03p1AxV3Q6hantiRAe5VxHthKTiljrqLA5ZTxtSoY0PWV4pNrmPHYD3JPFneOWq86vr_DSeJcbvnvAn090CovqblSeQ_TDd2SaGIav4MMNML5Oi3dDHolrT_fuG1o-_ISOeMfMUiwIXZUgeA1VFIW75-KPiom-I-XvbFT1MqP9oTP2qrAmOhg-N14Kwg"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface via-transparent to-transparent"></div>
+</div>
+<div class="p-6 flex-grow flex flex-col">
+<h3 class="font-headline-md text-headline-md text-on-surface mb-2">Weight Loss</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-4 flex-grow">Science-backed protocols to shred fat while preserving lean muscle mass. Sustainable, intense results.</p>
+<ul class="mb-6 space-y-2">
+<li class="flex items-center text-sm text-tertiary"><span class="material-symbols-outlined text-primary mr-2 text-[18px]">check_circle</span> Metabolic conditioning</li>
+<li class="flex items-center text-sm text-tertiary"><span class="material-symbols-outlined text-primary mr-2 text-[18px]">check_circle</span> Macronutrient planning</li>
+<li class="flex items-center text-sm text-tertiary"><span class="material-symbols-outlined text-primary mr-2 text-[18px]">check_circle</span> Progress tracking</li>
+</ul>
+<button class="w-full py-3 bg-surface-container-high border border-primary text-primary rounded-DEFAULT font-label-caps text-label-caps uppercase hover:bg-primary hover:text-black transition-all duration-300">Book Now</button>
+</div>
+</div>
+<!-- Card 4: Muscle Building -->
+<div class="glass-panel rounded-xl overflow-hidden flex flex-col group transition-all duration-300 hover:-translate-y-2 glow-hover">
+<div class="h-48 relative overflow-hidden">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="Close-up on a heavily chalked hand gripping a massive, textured barbell loaded with heavy iron plates. Shallow depth of field blurs the dark gym background. Lighting is harsh and direct, highlighting the metallic texture and the grit of the chalk. Powerful, heavy aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA4AkYCCLF0z6qOb3802EaR-_LbpemK6Dm_AAWdNmvHm_5vslNUIzsnbtUkl-muAIBhUZU5IDYvDT8Dj8LjMXYSkV_mSmalVV0QKfewyXyo7cEvAL0gdiY40iUViwl5bScyW6ZQjV83sRt_qQyrYqNQMNxJwPQLhgQVEio3aYtW4EW_2-ROycOrsbCFqagzsZPGtQ3DdfgBLsn_Xa2BVwrqKv477-EuGRuNPDQlrDJt1neHL09qQTJtPA"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface via-transparent to-transparent"></div>
+</div>
+<div class="p-6 flex-grow flex flex-col">
+<h3 class="font-headline-md text-headline-md text-on-surface mb-2">Muscle Building</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-4 flex-grow">Hypertrophy-focused cycles designed to pack on dense, functional muscle tissue through progressive overload.</p>
+<ul class="mb-6 space-y-2">
+<li class="flex items-center text-sm text-tertiary"><span class="material-symbols-outlined text-primary mr-2 text-[18px]">check_circle</span> Periodized cycles</li>
+<li class="flex items-center text-sm text-tertiary"><span class="material-symbols-outlined text-primary mr-2 text-[18px]">check_circle</span> Volume management</li>
+<li class="flex items-center text-sm text-tertiary"><span class="material-symbols-outlined text-primary mr-2 text-[18px]">check_circle</span> Recovery protocols</li>
+</ul>
+<button class="w-full py-3 bg-surface-container-high border border-primary text-primary rounded-DEFAULT font-label-caps text-label-caps uppercase hover:bg-primary hover:text-black transition-all duration-300">Book Now</button>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="w-full relative bottom-0 bg-surface-container-lowest border-t border-white/5">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-base px-margin-desktop py-12 max-w-container-max mx-auto px-margin-mobile">
+<div class="col-span-1 md:col-span-2">
+<div class="font-headline-md text-headline-md text-on-surface mb-4">
+                    APEX COACHING
+                </div>
+<p class="font-body-sm text-body-md text-on-surface-variant max-w-sm mb-6">
+                    Redefining human potential through elite performance coaching and uncompromising standards.
+                </p>
+<div class="font-body-sm text-body-md text-on-surface-variant">
+                    © 2024 APEX ELITE PERFORMANCE. ALL RIGHTS RESERVED.
+                </div>
+</div>
+<div class="col-span-1">
+<h4 class="font-label-caps text-label-caps text-on-surface uppercase mb-4 tracking-widest">Legal</h4>
+<ul class="space-y-3">
+<li><a class="font-body-sm text-body-md text-on-surface-variant hover:text-primary-fixed transition-colors cursor-pointer" href="#">Privacy Policy</a></li>
+<li><a class="font-body-sm text-body-md text-on-surface-variant hover:text-primary-fixed transition-colors cursor-pointer" href="#">Terms of Service</a></li>
+</ul>
+</div>
+<div class="col-span-1">
+<h4 class="font-label-caps text-label-caps text-on-surface uppercase mb-4 tracking-widest">Connect</h4>
+<ul class="space-y-3">
+<li><a class="font-body-sm text-body-md text-on-surface-variant hover:text-primary-fixed transition-colors cursor-pointer" href="#">FAQ</a></li>
+<li><a class="font-body-sm text-body-md text-on-surface-variant hover:text-primary-fixed transition-colors cursor-pointer" href="#">Careers</a></li>
+</ul>
+</div>
+</div>
+</footer>
+</body></html>
